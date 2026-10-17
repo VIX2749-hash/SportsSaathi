@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #201215;
+    color: #FAF7F2;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Oswald', 'Bebas Neue', sans-serif;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+}
+
+/* Custom asymmetrical folder-tab card style inspired by screenshot */
+.folder-tab-badge {
+  position: relative;
+  background-color: #CCFF00;
+  color: #121212;
+  font-weight: 700;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 0px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #170c0e;
+}
+::-webkit-scrollbar-thumb {
+  background: #381e23;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #CCFF00;
+}
