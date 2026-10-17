@@ -42,6 +42,13 @@ model User {
   sentInvites         ActivityInvite[] @relation("SentInvites")
   receivedInvites     ActivityInvite[] @relation("ReceivedInvites")
 
+  // Module: Facilities and Equipment
+  ownedFacilities       SportsFacility[]        @relation("OwnedFacilities")
+  facilityBookings      FacilityBooking[]       @relation("UserFacilityBookings")
+  ownedEquipment        EquipmentItem[]         @relation("OwnedEquipment")
+  equipmentReservations EquipmentReservation[]  @relation("UserEquipmentReservations")
+  recordedHandoverEvents EquipmentHandoverEvent[] @relation("RecordedHandovers")
+
   @@index([city])
 }
 
@@ -198,7 +205,7 @@ model ActivityMessage {
 model Notification {
   id        String    @id @default(uuid())
   userId    String
-  type      String    // CONNECTION_REQUEST, ACTIVITY_INVITE, ACTIVITY_JOIN, ACTIVITY_30M_REMINDER, ATTENDANCE_VERIFIED, MESSAGE_RECEIVED, SYSTEM
+  type      String    // CONNECTION_REQUEST, ACTIVITY_INVITE, ACTIVITY_JOIN, ACTIVITY_30M_REMINDER, ATTENDANCE_VERIFIED, MESSAGE_RECEIVED, FACILITY_BOOKING, EQUIPMENT_RESERVATION, SYSTEM
   title     String
   body      String
   link      String?
@@ -233,4 +240,142 @@ model Block {
   blocked   User     @relation("BlockedByUser", fields: [blockedId], references: [id], onDelete: Cascade)
 
   @@unique([userId, blockedId])
+}
+
+// ==========================================
+// MODULE: SPORTS SPACES & FACILITY BOOKING
+// ==========================================
+
+model SportsFacility {
+  id                   String   @id @default(uuid())
+  ownerId              String
+  name                 String
+  description          String
+  facilityType         String   // Badminton Court, Football Ground, Cricket Nets, Basketball Court, Tennis Court, Running Track, Indoor Hall, Community Ground
+  sportCategories      String   // Comma separated: "Badminton, Racket" or "Football, Team"
+  photos               String   // Comma separated image URLs or JSON
+  location             String   // Generalized public area / venue name, e.g., "Seattle Center Fieldhouse"
+  addressDetails       String?  // Exact address shown only upon confirmed booking
+  amenities            String   // Comma separated: "Floodlights, Lockers, Water Fountain, Parking, Showers, Equipment Rental"
+  openingHours         String   // e.g. "06:00 - 22:00"
+  bookingDurationRules String   // e.g. "60 min slots"
+  slotDurationMinutes  Int      @default(60)
+  pricePerSlot         Float    @default(0.0) // MVP: Cost info only
+  requiresApproval     Boolean  @default(false)
+  capacity             Int      @default(10)
+  status               String   @default("ACTIVE") // ACTIVE, MAINTENANCE, INACTIVE
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  owner                User                    @relation("OwnedFacilities", fields: [ownerId], references: [id], onDelete: Cascade)
+  availabilities       FacilityAvailability[]
+  bookings             FacilityBooking[]
+
+  @@index([facilityType])
+  @@index([status])
+}
+
+model FacilityAvailability {
+  id                String   @id @default(uuid())
+  facilityId        String
+  startAt           DateTime
+  endAt             DateTime
+  status            String   @default("AVAILABLE") // AVAILABLE, BOOKED, MAINTENANCE, BLOCKED
+  maintenanceReason String?
+
+  facility          SportsFacility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+
+  @@index([facilityId, startAt])
+}
+
+model FacilityBooking {
+  id                 String   @id @default(uuid())
+  facilityId         String
+  userId             String
+  startAt            DateTime
+  endAt              DateTime
+  totalPrice         Float    @default(0.0)
+  status             String   @default("CONFIRMED") // PENDING, CONFIRMED, REJECTED, CANCELLED, COMPLETED
+  notes              String?
+  cancellationReason String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  facility           SportsFacility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+  user               User           @relation("UserFacilityBookings", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([facilityId, startAt, endAt])
+  @@index([userId])
+}
+
+// ==========================================
+// MODULE: COMMUNITY EQUIPMENT SHARING
+// ==========================================
+
+model EquipmentItem {
+  id                 String   @id @default(uuid())
+  ownerId            String
+  name               String
+  description        String
+  sportCategory      String   // Running, Badminton, Football, Cricket, Tennis, Basketball, Yoga, Volleyball, Cycling
+  condition          String   // Brand New, Excellent, Good, Fair
+  totalQuantity      Int      @default(1)
+  sharingType        String   @default("FREE_LENDING") // FREE_LENDING, PAID_RENTAL, COMMUNITY_POOL
+  pickupArea         String   // General neighborhood / pickup venue e.g. "Capitol Hill Community Center"
+  pickupAddress      String?  // Exact pickup notes revealed to approved borrower
+  loanDurationRules  String   // e.g. "Up to 3 days"
+  maxLoanDays        Int      @default(3)
+  depositRequired    Float    @default(0.0)
+  pricePerLoan       Float    @default(0.0)
+  photos             String   // Comma-separated URLs
+  status             String   @default("AVAILABLE") // AVAILABLE, RESERVED, MAINTENANCE, RETIRED
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  owner              User                   @relation("OwnedEquipment", fields: [ownerId], references: [id], onDelete: Cascade)
+  reservations       EquipmentReservation[]
+
+  @@index([sportCategory])
+  @@index([status])
+}
+
+model EquipmentReservation {
+  id                 String   @id @default(uuid())
+  equipmentItemId    String
+  borrowerId         String
+  quantity           Int      @default(1)
+  pickupAt           DateTime
+  expectedReturnAt   DateTime
+  actualReturnAt     DateTime?
+  totalPrice         Float    @default(0.0)
+  deposit            Float    @default(0.0)
+  status             String   @default("PENDING") // PENDING, APPROVED, REJECTED, READY_FOR_PICKUP, BORROWED, RETURNED, CANCELLED, OVERDUE
+  approvedBy         String?
+  purposeNote        String?
+  pickupCondition    String?  // Notes on condition at pickup
+  returnCondition    String?  // Notes on condition at return
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  equipmentItem      EquipmentItem            @relation(fields: [equipmentItemId], references: [id], onDelete: Cascade)
+  borrower           User                     @relation("UserEquipmentReservations", fields: [borrowerId], references: [id], onDelete: Cascade)
+  handoverEvents     EquipmentHandoverEvent[]
+
+  @@index([equipmentItemId, pickupAt, expectedReturnAt])
+  @@index([borrowerId])
+}
+
+model EquipmentHandoverEvent {
+  id             String   @id @default(uuid())
+  reservationId  String
+  eventType      String   // PICKUP_HANDOVER, RETURN_RECEIPT, DAMAGE_REPORT, DISPUTE_FILED
+  recordedBy     String
+  eventTimestamp DateTime @default(now())
+  conditionNotes String?
+  evidenceUrls   String?  // Comma-separated photo proof URLs
+
+  reservation    EquipmentReservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  recorder       User                 @relation("RecordedHandovers", fields: [recordedBy], references: [id], onDelete: Cascade)
+
+  @@index([reservationId])
 }

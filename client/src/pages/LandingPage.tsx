@@ -11,7 +11,10 @@ import {
   ArrowUpRight, 
   Lock,
   Clock,
-  Sparkles
+  Sparkles,
+  Building,
+  Package,
+  ChevronRight
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -211,6 +214,111 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* 3.5 THE THREE PILLARS OF MOVE TOGETHER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
+        <div className="bg-white rounded-[32px] p-8 sm:p-12 border border-neutral-200 shadow-sm space-y-8">
+          <div>
+            <span className="text-[11px] font-mono uppercase tracking-widest text-[#E76244] font-bold">
+              PLATFORM FOUNDATION
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl uppercase font-bold text-[#221013] mt-1">
+              EVERYTHING YOU NEED TO PLAY.
+            </h2>
+            <p className="text-xs sm:text-sm text-[#221013]/70 font-sans max-w-xl mt-1">
+              From finding a reliable doubles partner to reserving a turf court and borrowing tournament gear, Move Together covers every layer of your sports journey.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Pillar 1: People */}
+            <div 
+              onClick={() => onNavigate('partners')}
+              className="group cursor-pointer rounded-2xl p-6 bg-[#FAF7F0] border border-neutral-200 hover:border-[#221013] transition-all flex flex-col justify-between space-y-5"
+            >
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-[#221013] text-[#CCFF00] flex items-center justify-center shadow-sm">
+                  <Users size={24} />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 font-bold">
+                    PILLAR 01
+                  </span>
+                  <h3 className="font-display text-2xl uppercase font-bold text-[#221013] mt-0.5">
+                    FIND PEOPLE TO PLAY WITH
+                  </h3>
+                </div>
+                <p className="text-xs text-neutral-600 font-sans leading-relaxed">
+                  Discover compatible partners matched on pace, sport intensity, and overlapping schedules. Anti-dating friction keeps matches focused purely on athletics.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-xs font-display uppercase font-bold text-[#221013] group-hover:text-[#E76244] transition-colors">
+                <span>Explore Partners</span>
+                <ChevronRight size={16} />
+              </div>
+            </div>
+
+            {/* Pillar 2: Spaces */}
+            <div 
+              onClick={() => onNavigate('spaces')}
+              className="group cursor-pointer rounded-2xl p-6 bg-[#FAF7F0] border border-neutral-200 hover:border-[#221013] transition-all flex flex-col justify-between space-y-5"
+            >
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-[#221013] text-[#CCFF00] flex items-center justify-center shadow-sm">
+                  <Building size={24} />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#E76244] font-bold">
+                    PILLAR 02
+                  </span>
+                  <h3 className="font-display text-2xl uppercase font-bold text-[#221013] mt-0.5">
+                    FIND & BOOK PLACES TO PLAY
+                  </h3>
+                </div>
+                <p className="text-xs text-neutral-600 font-sans leading-relaxed">
+                  Book slots at badminton wooden courts, FIFA-grade turf grounds, cricket batting cages, and public tracks. Atomic booking ensures zero slot collisions.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-xs font-display uppercase font-bold text-[#221013] group-hover:text-[#E76244] transition-colors">
+                <span>Book Sports Spaces</span>
+                <ChevronRight size={16} />
+              </div>
+            </div>
+
+            {/* Pillar 3: Equipment */}
+            <div 
+              onClick={() => onNavigate('equipment')}
+              className="group cursor-pointer rounded-2xl p-6 bg-[#FAF7F0] border border-neutral-200 hover:border-[#221013] transition-all flex flex-col justify-between space-y-5"
+            >
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-[#CCFF00] text-[#121212] flex items-center justify-center shadow-sm">
+                  <Package size={24} />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 font-bold">
+                    PILLAR 03
+                  </span>
+                  <h3 className="font-display text-2xl uppercase font-bold text-[#221013] mt-0.5">
+                    BORROW, RENT & SHARE GEAR
+                  </h3>
+                </div>
+                <p className="text-xs text-neutral-600 font-sans leading-relaxed">
+                  Access community equipment libraries. Borrow rackets, training cones, and yoga mats with refundable deposits and earn +20 reputation points on return.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-xs font-display uppercase font-bold text-[#221013] group-hover:text-[#E76244] transition-colors">
+                <span>Browse Equipment Library</span>
+                <ChevronRight size={16} />
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 

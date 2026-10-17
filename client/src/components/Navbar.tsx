@@ -45,32 +45,50 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
             </span>
           </div>
 
-          {/* Desktop Links (SPORTS, HOW IT WORKS, ACTIVITIES, SAFETY) */}
-          <nav className="hidden md:flex items-center gap-9">
-            <button
-              onClick={() => onNavigate('activities')}
-              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
-                currentTab === 'activities' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
-              }`}
-            >
-              Sports
-            </button>
-            <button
-              onClick={() => onNavigate('home')}
-              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
-                currentTab === 'home' ? 'text-[#221013]' : 'text-[#221013]/70 hover:text-[#221013]'
-              }`}
-            >
-              How It Works
-            </button>
+          {/* Desktop Links (3 Pillars + Dashboard) */}
+          <nav className="hidden lg:flex items-center gap-7">
             <button
               onClick={() => onNavigate('partners')}
               className={`text-xs font-bold tracking-wider uppercase transition-colors ${
                 currentTab === 'partners' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
               }`}
             >
-              Find Partners
+              Partners
             </button>
+            <button
+              onClick={() => onNavigate('activities')}
+              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+                currentTab === 'activities' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
+              }`}
+            >
+              Activities
+            </button>
+            <button
+              onClick={() => onNavigate('spaces')}
+              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+                currentTab === 'spaces' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
+              }`}
+            >
+              Sports Spaces
+            </button>
+            <button
+              onClick={() => onNavigate('equipment')}
+              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+                currentTab === 'equipment' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
+              }`}
+            >
+              Equipment
+            </button>
+            {user && (
+              <button
+                onClick={() => onNavigate('my-bookings')}
+                className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+                  currentTab === 'my-bookings' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
+                }`}
+              >
+                My Bookings
+              </button>
+            )}
             <button
               onClick={() => onNavigate('safety')}
               className={`text-xs font-bold tracking-wider uppercase transition-colors ${
@@ -79,7 +97,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
             >
               Safety
             </button>
-
             {user && (
               <button
                 onClick={() => onNavigate('dashboard')}
@@ -187,17 +204,37 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#FAF7F0] border-b border-neutral-200 px-6 pt-4 pb-6 space-y-4">
           <button
+            onClick={() => { onNavigate('partners'); setMobileMenuOpen(false); }}
+            className="block w-full text-left font-display text-lg uppercase text-[#221013] py-1"
+          >
+            Find Partners
+          </button>
+          <button
             onClick={() => { onNavigate('activities'); setMobileMenuOpen(false); }}
             className="block w-full text-left font-display text-lg uppercase text-[#221013] py-1"
           >
             Sports & Activities
           </button>
           <button
-            onClick={() => { onNavigate('partners'); setMobileMenuOpen(false); }}
+            onClick={() => { onNavigate('spaces'); setMobileMenuOpen(false); }}
             className="block w-full text-left font-display text-lg uppercase text-[#221013] py-1"
           >
-            Find Partners
+            Sports Spaces & Venues
           </button>
+          <button
+            onClick={() => { onNavigate('equipment'); setMobileMenuOpen(false); }}
+            className="block w-full text-left font-display text-lg uppercase text-[#221013] py-1"
+          >
+            Equipment Library
+          </button>
+          {user && (
+            <button
+              onClick={() => { onNavigate('my-bookings'); setMobileMenuOpen(false); }}
+              className="block w-full text-left font-display text-lg uppercase text-[#E76244] py-1"
+            >
+              My Bookings & Handovers
+            </button>
+          )}
           <button
             onClick={() => { onNavigate('safety'); setMobileMenuOpen(false); }}
             className="block w-full text-left font-display text-lg uppercase text-[#221013] py-1"

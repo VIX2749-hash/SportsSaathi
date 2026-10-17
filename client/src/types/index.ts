@@ -181,3 +181,116 @@ export interface ConversationSummary {
   unreadCount: number;
   updatedAt: string;
 }
+
+export interface SportsFacility {
+  id: string;
+  ownerId: string;
+  name: string;
+  description: string;
+  facilityType: string;
+  sportCategories: string;
+  photos: string;
+  location: string;
+  addressDetails?: string | null;
+  amenities: string;
+  openingHours: string;
+  bookingDurationRules: string;
+  slotDurationMinutes: number;
+  pricePerSlot: number;
+  requiresApproval: boolean;
+  capacity: number;
+  status: 'ACTIVE' | 'INACTIVE';
+  createdAt: string;
+  updatedAt: string;
+  owner?: {
+    id: string;
+    displayName: string;
+    avatarUrl?: string | null;
+    city?: string;
+  };
+}
+
+export interface FacilityBooking {
+  id: string;
+  facilityId: string;
+  userId: string;
+  startAt: string;
+  endAt: string;
+  totalPrice: number;
+  status: 'PENDING' | 'CONFIRMED' | 'REJECTED' | 'CANCELLED';
+  notes?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  facility?: SportsFacility;
+  user?: {
+    id: string;
+    displayName: string;
+    avatarUrl?: string | null;
+    city?: string;
+  };
+}
+
+export interface EquipmentHandoverEvent {
+  id: string;
+  reservationId: string;
+  recordedById: string;
+  eventType: 'PICKED_UP' | 'RETURNED';
+  notes?: string | null;
+  conditionReport?: string | null;
+  createdAt: string;
+  recordedBy?: {
+    id: string;
+    displayName: string;
+  };
+}
+
+export interface EquipmentItem {
+  id: string;
+  ownerId: string;
+  name: string;
+  description: string;
+  sportCategory: string;
+  condition: string;
+  totalQuantity: number;
+  availableQuantity?: number;
+  sharingType: 'FREE_LENDING' | 'PAID_RENTAL' | 'COMMUNITY_POOL';
+  pickupArea: string;
+  pickupAddress?: string | null;
+  loanDurationRules: string;
+  maxLoanDays: number;
+  depositRequired: number;
+  pricePerLoan: number;
+  photos: string;
+  status: 'AVAILABLE' | 'MAINTENANCE' | 'ARCHIVED';
+  createdAt: string;
+  updatedAt: string;
+  owner?: {
+    id: string;
+    displayName: string;
+    avatarUrl?: string | null;
+    city?: string;
+  };
+}
+
+export interface EquipmentReservation {
+  id: string;
+  equipmentId: string;
+  borrowerId: string;
+  quantity: number;
+  startAt: string;
+  endAt: string;
+  totalCost: number;
+  depositHeld: number;
+  status: 'PENDING' | 'CONFIRMED' | 'PICKED_UP' | 'RETURNED' | 'CANCELLED' | 'REJECTED';
+  notes?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  equipment?: EquipmentItem;
+  borrower?: {
+    id: string;
+    displayName: string;
+    avatarUrl?: string | null;
+    city?: string;
+  };
+  handoverEvents?: EquipmentHandoverEvent[];
+}

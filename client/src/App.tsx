@@ -14,6 +14,9 @@ import { Messages } from './pages/Messages';
 import { Notifications } from './pages/Notifications';
 import { ProfileSettings } from './pages/ProfileSettings';
 import { SafetyHub } from './pages/SafetyHub';
+import { SportsSpaces } from './pages/SportsSpaces';
+import { EquipmentLibrary } from './pages/EquipmentLibrary';
+import { MyBookings } from './pages/MyBookings';
 import { Activity, Partner } from './types';
 import { apiRequest } from './services/api';
 
@@ -156,6 +159,26 @@ export function App() {
         {currentTab === 'profile' && (
           <ProfileSettings
             onOpenOnboarding={() => setIsOnboarding(true)}
+          />
+        )}
+
+        {currentTab === 'spaces' && (
+          <SportsSpaces
+            onNavigate={handleNavigate}
+            onOpenAuth={handleOpenAuth}
+          />
+        )}
+
+        {currentTab === 'equipment' && (
+          <EquipmentLibrary
+            onNavigate={handleNavigate}
+            onOpenAuth={handleOpenAuth}
+          />
+        )}
+
+        {currentTab === 'my-bookings' && (
+          <MyBookings
+            onNavigate={handleNavigate}
           />
         )}
 

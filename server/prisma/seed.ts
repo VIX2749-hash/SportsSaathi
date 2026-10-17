@@ -377,7 +377,210 @@ async function main() {
     },
   });
 
-  console.log('Database successfully seeded with realistic athletes and sessions!');
+  // 6. Seed Sports Facilities
+  const facility1 = await prisma.sportsFacility.create({
+    data: {
+      ownerId: createdUsers[1].id, // Sarah Chen
+      name: 'Kirkland Premier Badminton Center',
+      description: 'Professional BWF-grade wooden sprung courts with tournament lighting, non-slip vinyl mats, and spectator gallery.',
+      facilityType: 'Badminton Court',
+      sportCategories: 'Badminton, Racket',
+      photos: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=800&q=80',
+      location: 'Kirkland / Totem Lake, Greater Seattle',
+      addressDetails: '11220 120th Ave NE, Kirkland, WA 98034',
+      amenities: 'Showers, Lockers, Water Fountain, Pro Shop, Parking',
+      openingHours: '07:00 - 23:00',
+      bookingDurationRules: '60 min slots (Max 2 consecutive hours)',
+      slotDurationMinutes: 60,
+      pricePerSlot: 24.0,
+      requiresApproval: false,
+      capacity: 8,
+      status: 'ACTIVE',
+    },
+  });
+
+  const facility2 = await prisma.sportsFacility.create({
+    data: {
+      ownerId: createdUsers[2].id, // Marcus Vance
+      name: 'Capitol Hill Synthetic Turf 7v7 Arena',
+      description: 'All-weather FIFA-quality rubber crumb turf pitch with LED floodlighting. Fully enclosed with goals and perimeter netting.',
+      facilityType: 'Football Ground',
+      sportCategories: 'Football, Team',
+      photos: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80',
+      location: 'Capitol Hill / Cal Anderson, Seattle',
+      addressDetails: '1635 11th Ave, Seattle, WA 98122',
+      amenities: 'Floodlights, Changing Rooms, Equipment Storage, Spectator Benches',
+      openingHours: '06:00 - 22:00',
+      bookingDurationRules: '90 min slots',
+      slotDurationMinutes: 90,
+      pricePerSlot: 45.0,
+      requiresApproval: true,
+      capacity: 18,
+      status: 'ACTIVE',
+    },
+  });
+
+  const facility3 = await prisma.sportsFacility.create({
+    data: {
+      ownerId: createdUsers[0].id, // Alex Rivera
+      name: 'Green Lake Tennis & Pickleball Courts',
+      description: 'Hard-surface outdoor courts resurfaced in 2025. Wind nets and nighttime push-button lighting.',
+      facilityType: 'Tennis Court',
+      sportCategories: 'Tennis, Racket',
+      photos: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80',
+      location: 'Green Lake Park, North Seattle',
+      addressDetails: '7201 E Green Lake Dr N, Seattle, WA 98115',
+      amenities: 'Night Lighting, Water Fountain, Public Restrooms, Nearby Cafe',
+      openingHours: '06:00 - 22:00',
+      bookingDurationRules: '60 min slots',
+      slotDurationMinutes: 60,
+      pricePerSlot: 0.0,
+      requiresApproval: false,
+      capacity: 4,
+      status: 'ACTIVE',
+    },
+  });
+
+  const facility4 = await prisma.sportsFacility.create({
+    data: {
+      ownerId: createdUsers[4].id, // David Kim
+      name: 'Rainier Cricket Nets & Practice Cages',
+      description: 'Two full-length astroturf cricket batting lanes with protective high-tension netting and bowling run-ups.',
+      facilityType: 'Cricket Nets',
+      sportCategories: 'Cricket, Team',
+      photos: 'https://images.unsplash.com/photo-1531415074868-036b1c5d53ec?auto=format&fit=crop&w=800&q=80',
+      location: 'Rainier Valley, Seattle',
+      addressDetails: '3720 S Genesee St, Seattle, WA 98118',
+      amenities: 'Practice Nets, Bowling Machine, Gear Lockers',
+      openingHours: '08:00 - 20:00',
+      bookingDurationRules: '60 min slots',
+      slotDurationMinutes: 60,
+      pricePerSlot: 15.0,
+      requiresApproval: false,
+      capacity: 6,
+      status: 'ACTIVE',
+    },
+  });
+
+  // 7. Seed Community Equipment Items
+  const eq1 = await prisma.equipmentItem.create({
+    data: {
+      ownerId: createdUsers[1].id, // Sarah Chen
+      name: 'Yonex Astrox 88D Pro Badminton Rackets (Pair)',
+      description: 'High-end graphite badminton rackets restrung with BG80 at 26 lbs. Comes with thermal padded carry bag and overgrips.',
+      sportCategory: 'Badminton',
+      condition: 'Excellent',
+      totalQuantity: 2,
+      sharingType: 'FREE_LENDING',
+      pickupArea: 'Capitol Hill (near Light Rail Station)',
+      pickupAddress: 'Meeting point at Broadway & John St entrance',
+      loanDurationRules: 'Up to 3 days loan',
+      maxLoanDays: 3,
+      depositRequired: 25.0,
+      pricePerLoan: 0.0,
+      photos: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=700&q=80',
+      status: 'AVAILABLE',
+    },
+  });
+
+  const eq2 = await prisma.equipmentItem.create({
+    data: {
+      ownerId: createdUsers[2].id, // Marcus Vance
+      name: 'Adidas FIFA Match Ball & Training Agility Cones',
+      description: 'Official size 5 thermal-bonded soccer match ball, pump with gauge, and set of 20 field agility markers.',
+      sportCategory: 'Football',
+      condition: 'Good',
+      totalQuantity: 3,
+      sharingType: 'FREE_LENDING',
+      pickupArea: 'South Lake Union, Seattle',
+      pickupAddress: 'Available near SLU Park bench #2',
+      loanDurationRules: 'Up to 2 days',
+      maxLoanDays: 2,
+      depositRequired: 0.0,
+      pricePerLoan: 0.0,
+      photos: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80',
+      status: 'AVAILABLE',
+    },
+  });
+
+  const eq3 = await prisma.equipmentItem.create({
+    data: {
+      ownerId: createdUsers[0].id, // Alex Rivera
+      name: 'Wilson Pro Staff 97 Tennis Racket + Fresh Ball Can',
+      description: 'Mid-plus tournament frame strung with Luxilon ALU Power. Includes fresh pressurized can of Wilson US Open balls.',
+      sportCategory: 'Tennis',
+      condition: 'Excellent',
+      totalQuantity: 1,
+      sharingType: 'PAID_RENTAL',
+      pickupArea: 'Green Lake Community Center',
+      pickupAddress: 'Front lobby of Green Lake Community Center',
+      loanDurationRules: '1 - 4 days',
+      maxLoanDays: 4,
+      depositRequired: 30.0,
+      pricePerLoan: 8.0,
+      photos: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=700&q=80',
+      status: 'AVAILABLE',
+    },
+  });
+
+  const eq4 = await prisma.equipmentItem.create({
+    data: {
+      ownerId: createdUsers[3].id, // Elena Rostova
+      name: 'Manduka PRO Yoga Mats & Cork Blocks',
+      description: 'High-density 6mm non-slip yoga mat with two natural cork alignment blocks and cotton carrying strap.',
+      sportCategory: 'Yoga',
+      condition: 'Brand New',
+      totalQuantity: 4,
+      sharingType: 'FREE_LENDING',
+      pickupArea: 'Fremont, Seattle',
+      pickupAddress: 'Near Fremont Bridge plaza',
+      loanDurationRules: 'Up to 5 days',
+      maxLoanDays: 5,
+      depositRequired: 15.0,
+      pricePerLoan: 0.0,
+      photos: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=700&q=80',
+      status: 'AVAILABLE',
+    },
+  });
+
+  // 8. Sample Facility Booking & Equipment Reservation for Alex Rivera
+  const sampleBookingStart = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+  sampleBookingStart.setHours(18, 0, 0, 0);
+  const sampleBookingEnd = new Date(sampleBookingStart.getTime() + 60 * 60 * 1000);
+
+  await prisma.facilityBooking.create({
+    data: {
+      facilityId: facility1.id,
+      userId: createdUsers[0].id, // Alex booked Sarah's badminton court
+      startAt: sampleBookingStart,
+      endAt: sampleBookingEnd,
+      totalPrice: 24.0,
+      status: 'CONFIRMED',
+      notes: 'Doubles match training with friends',
+    },
+  });
+
+  // Sample Equipment Reservation
+  const resvStart = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  const resvEnd = new Date(now.getTime() + 72 * 60 * 60 * 1000);
+
+  await prisma.equipmentReservation.create({
+    data: {
+      equipmentItemId: eq1.id,
+      borrowerId: createdUsers[0].id, // Alex borrowing Sarah's Yonex rackets
+      quantity: 1,
+      pickupAt: resvStart,
+      expectedReturnAt: resvEnd,
+      totalPrice: 0.0,
+      deposit: 25.0,
+      status: 'APPROVED',
+      approvedBy: createdUsers[1].id,
+      purposeNote: 'Playing badminton session at Kirkland',
+      pickupCondition: 'Racket and strings in immaculate condition',
+    },
+  });
+
+  console.log('Database successfully seeded with realistic athletes, activities, sports spaces, and equipment!');
 }
 
 main()
