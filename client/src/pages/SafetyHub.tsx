@@ -27,7 +27,7 @@ export const SafetyHub: React.FC<SafetyHubProps> = ({ onNavigate }) => {
           Safety & Privacy Standards
         </h1>
         <p className="text-sm text-brand-ivoryMuted mt-1 max-w-2xl">
-          Move Together is built around public athletic accountability. We prioritize verified public venues, explicit consent, and privacy guarantees.
+          Sports Saathi is built around public athletic accountability and community trust across India. We prioritize verified public venues, explicit consent, and privacy guarantees.
         </p>
       </div>
 

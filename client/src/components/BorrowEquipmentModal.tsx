@@ -114,11 +114,11 @@ export const BorrowEquipmentModal: React.FC<BorrowEquipmentModalProps> = ({
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Deposit:</span>
-                <span className="font-bold text-[#221013]">${depositTotal} (Refundable)</span>
+                <span className="font-bold text-[#221013]">₹{depositTotal} (Refundable)</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Rental Fee:</span>
-                <span className="font-bold text-[#221013]">{totalCost === 0 ? 'Free Lending' : `$${totalCost}`}</span>
+                <span className="font-bold text-[#221013]">{totalCost === 0 ? 'Free Lending' : `₹${totalCost}`}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Pickup Area:</span>
@@ -234,13 +234,13 @@ export const BorrowEquipmentModal: React.FC<BorrowEquipmentModalProps> = ({
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-[#221013]/70 font-sans">Borrowing Fee:</span>
                   <span className="font-bold text-[#221013]">
-                    {totalCost === 0 ? '$0 (Free)' : `$${totalCost}`}
+                    {totalCost === 0 ? '₹0 (Free)' : `₹${totalCost}`}
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-[#221013]/70 font-sans">Refundable Deposit:</span>
                   <span className="font-bold text-emerald-700">
-                    {depositTotal === 0 ? '$0 (No deposit)' : `$${depositTotal}`}
+                    {depositTotal === 0 ? '₹0 (No deposit)' : `₹${depositTotal}`}
                   </span>
                 </div>
                 <div className="pt-2 border-t border-neutral-300/60 flex items-center justify-between text-[11px] font-mono text-neutral-600">

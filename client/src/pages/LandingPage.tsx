@@ -30,27 +30,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onNavigate,
   onOpenAuth,
 }) => {
-  const [activeSportFilter, setActiveSportFilter] = useState('FOOTBALL');
+  const [activeSportFilter, setActiveSportFilter] = useState('CRICKET');
 
   const sportsList = [
-    { id: 'RUNNING', label: 'RUNNING' },
-    { id: 'BADMINTON', label: 'BADMINTON' },
-    { id: 'FOOTBALL', label: 'FOOTBALL' },
-    { id: 'CYCLING', label: 'CYCLING' },
-    { id: 'TENNIS', label: 'TENNIS' },
-    { id: 'BASKETBALL', label: 'BASKETBALL' },
-    { id: 'CRICKET', label: 'CRICKET' },
-    { id: 'SWIMMING', label: 'SWIMMING' },
-    { id: 'YOGA', label: 'YOGA' },
-    { id: 'HIKING', label: 'HIKING' },
-    { id: 'GYM', label: 'GYM' },
-    { id: 'VOLLEYBALL', label: 'VOLLEYBALL' },
+    { id: 'CRICKET', label: 'CRICKET 🏏' },
+    { id: 'BADMINTON', label: 'BADMINTON 🏸' },
+    { id: 'FOOTBALL', label: 'TURF FOOTBALL ⚽' },
+    { id: 'RUNNING', label: 'RUNNING 🏃' },
+    { id: 'YOGA', label: 'YOGA 🧘' },
+    { id: 'CYCLING', label: 'CYCLING 🚴' },
+    { id: 'TENNIS', label: 'TENNIS 🎾' },
+    { id: 'TABLE TENNIS', label: 'TABLE TENNIS 🏓' },
+    { id: 'BASKETBALL', label: 'BASKETBALL 🏀' },
+    { id: 'SWIMMING', label: 'SWIMMING 🏊' },
+    { id: 'KABADDI', label: 'KABADDI' },
+    { id: 'GYM', label: 'GYM & WORKOUT 💪' },
   ];
 
   return (
     <div className="bg-[#FAF7F0] text-[#221013] min-h-screen">
       
-      {/* 1. HERO SECTION (Exactly matching screenshot 4 with rounded dark wine frame inside ivory page) */}
+      {/* 1. HERO SECTION (Rounded dark wine frame inside ivory page) */}
       <section className="px-4 sm:px-8 pt-6 pb-12">
         <div className="max-w-7xl mx-auto bg-[#231215] rounded-[36px] overflow-hidden p-8 sm:p-14 lg:p-16 text-white relative shadow-2xl">
           
@@ -59,10 +59,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {/* Left Headline & Content */}
             <div className="lg:col-span-7 space-y-8">
               
-              {/* Badge: FIND YOUR PEOPLE */}
+              {/* Badge: INDIA'S SPORTS COMMUNITY */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#341b20] border border-[#4d2830] text-xs font-mono tracking-wider uppercase text-white/90">
                 <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
-                FIND YOUR PEOPLE
+                <span>SPORTS SAATHI 🇮🇳 • BHARAT KHELTE RAHO</span>
               </div>
 
               {/* Huge Condensed Display Headline */}
@@ -75,7 +75,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               {/* Supporting Subtitle */}
               <p className="text-base sm:text-lg text-white/70 max-w-lg font-sans leading-relaxed">
-                Find people who share your pace, your schedule, and your favorite sports. From early-morning runs to weekend matches, your next sports partner is closer than you think.
+                Find sports partners who match your pace, schedule, and passion. From 6 AM Cubbon Park morning runs and evening doubles badminton to weekend turf cricket matches, your next Sports Saathi is just around the corner.
               </p>
 
               {/* Actions */}
@@ -92,7 +92,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   onClick={() => onNavigate('activities')}
                   className="bg-transparent hover:bg-white/10 text-white font-display font-semibold text-base uppercase tracking-wider px-7 py-4 rounded-full border border-white/20 transition-all flex items-center gap-2"
                 >
-                  <span>Explore Activities</span>
+                  <span>Explore Matches</span>
                   <ArrowUpRight size={16} className="text-[#CCFF00]" />
                 </button>
               </div>
@@ -103,23 +103,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="lg:col-span-5 relative">
               <div className="relative rounded-[28px] overflow-hidden shadow-2xl border border-white/10">
                 <img
-                  src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=80"
-                  alt="Athletes running together outdoors at sunrise"
+                  src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=900&q=80"
+                  alt="Athletes playing cricket and running together in India"
                   className="w-full h-[480px] object-cover"
                 />
                 
                 {/* Floating Bottom Card: EXAMPLE ACTIVITY */}
                 <div className="absolute bottom-4 left-4 right-4 bg-[#FAF7F0] text-[#221013] p-5 rounded-2xl shadow-xl">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-black/50 block font-bold mb-1">
-                    EXAMPLE ACTIVITY
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#E76244] block font-bold mb-1">
+                    FEATURED MORNING SESSION
                   </span>
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-display text-xl uppercase font-bold text-[#221013]">
-                        7 AM RIVERSIDE RUN
+                        6:30 AM CUBBON PARK RUN
                       </h4>
                       <p className="text-xs text-[#221013]/70 font-sans mt-0.5">
-                        Tomorrow 7:00 • Green Lake Park • 3 spots open
+                        Tomorrow 6:30 AM • Central Bengaluru • 4 spots open
                       </p>
                     </div>
                     <button
@@ -183,7 +183,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 CREATE A PROFILE
               </h3>
               <p className="text-xs font-medium text-black/80 leading-relaxed">
-                Your sports, level, goals and when you're free.
+                Your sports, playing level, home ground, and free slots.
               </p>
             </div>
           </div>
@@ -193,10 +193,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <span className="font-display text-6xl font-bold leading-none text-white/90">02</span>
             <div>
               <h3 className="font-display text-2xl uppercase font-bold tracking-tight mb-2">
-                FIND YOUR PEOPLE
+                APNA SAATHI DHOONDO
               </h3>
               <p className="text-xs font-medium text-white/90 leading-relaxed">
-                Match with partners and groups at your pace, nearby.
+                Match with badminton, cricket, and running partners at your pace nearby.
               </p>
             </div>
           </div>
@@ -206,10 +206,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <span className="font-display text-6xl font-bold leading-none text-white/70">03</span>
             <div>
               <h3 className="font-display text-2xl uppercase font-bold tracking-tight mb-2">
-                SHOW UP
+                SHOW UP & PLAY
               </h3>
               <p className="text-xs font-medium text-white/75 leading-relaxed">
-                Join a session, meet up, and keep the streak going.
+                Join sessions at local grounds, scan QR check-in, and build your active streak.
               </p>
             </div>
           </div>
@@ -217,7 +217,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* 3.5 THE THREE PILLARS OF MOVE TOGETHER */}
+      {/* 3.5 THE THREE PILLARS OF SPORTS SAATHI */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
         <div className="bg-white rounded-[32px] p-8 sm:p-12 border border-neutral-200 shadow-sm space-y-8">
           <div>
@@ -225,10 +225,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               PLATFORM FOUNDATION
             </span>
             <h2 className="font-display text-4xl sm:text-5xl uppercase font-bold text-[#221013] mt-1">
-              EVERYTHING YOU NEED TO PLAY.
+              THE THREE PILLARS OF SPORTS SAATHI.
             </h2>
             <p className="text-xs sm:text-sm text-[#221013]/70 font-sans max-w-xl mt-1">
-              From finding a reliable doubles partner to reserving a turf court and borrowing tournament gear, Move Together covers every layer of your sports journey.
+              From finding a reliable doubles partner in Bengaluru, Mumbai, or Delhi NCR to booking a floodlit turf and borrowing match kits, Sports Saathi covers every layer of your sports journey.
             </p>
           </div>
 
@@ -344,28 +344,28 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
-              sport: 'RUNNING • CASUAL',
-              title: '7 AM RIVERSIDE RUN',
-              time: 'Tomorrow · 7:00',
-              location: 'Riverside path',
+              sport: 'CRICKET • 8v8 BOX CRICKET',
+              title: 'WEEKEND BOX CRICKET LEAGUE',
+              time: 'Sat · 07:30 AM',
+              location: 'Turf Arena, Koramangala',
               spots: '3 spots open',
-              image: 'https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=700&q=80',
+              image: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=700&q=80',
             },
             {
-              sport: 'BADMINTON • INTERMEDIATE',
-              title: 'DOUBLES BADMINTON',
-              time: 'Sat · 18:30',
-              location: 'City sports hall',
+              sport: 'BADMINTON • INTERMEDIATE DOUBLES',
+              title: 'EVENING SHUTTLE DRILLS',
+              time: 'Tonight · 19:30',
+              location: 'Play Arena, Indiranagar',
               spots: 'Needs 2 players',
               image: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=700&q=80',
             },
             {
-              sport: 'CYCLING • ADVANCED',
-              title: 'SUNDAY COASTAL RIDE',
-              time: 'Sun · 6:30',
-              location: 'North coast road',
-              spots: 'Open group',
-              image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=700&q=80',
+              sport: 'RUNNING • 10K TRAINING',
+              title: 'CUBBON PARK MORNING RUN',
+              time: 'Sun · 06:30 AM',
+              location: 'Cubbon Park, Bengaluru',
+              spots: 'Open group (Free)',
+              image: 'https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=700&q=80',
             },
           ].map((item, idx) => (
             <div
@@ -445,10 +445,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <UserX size={20} />
               </div>
               <h4 className="font-display text-lg uppercase font-bold tracking-wide">
-                Report & block
+                Anti-Dating Guardrails
               </h4>
               <p className="text-xs text-white/60 leading-relaxed">
-                Flag behavior and block anyone, anytime.
+                Mandatory sports intent bios and zero unsolicited dating friction.
               </p>
             </div>
 
@@ -458,10 +458,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <ShieldCheck size={20} />
               </div>
               <h4 className="font-display text-lg uppercase font-bold tracking-wide">
-                Public meetups
+                Public Grounds
               </h4>
               <p className="text-xs text-white/60 leading-relaxed">
-                Sessions are designed around public venues.
+                Sessions take place at verified public venues and turf arenas.
               </p>
             </div>
 
@@ -469,12 +469,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* 6. BOTTOM CALL TO ACTION: "FIND YOUR PEOPLE. SHOW UP. KEEP MOVING." (Matching screenshot 1) */}
+      {/* 6. BOTTOM CALL TO ACTION: "FIND YOUR PEOPLE. SHOW UP. KHELTE RAHO." */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8 py-20 text-center">
         <div className="space-y-8 max-w-4xl mx-auto">
           <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl uppercase font-bold text-[#231215] tracking-tight leading-[0.92]">
-            FIND YOUR PEOPLE. <br />
-            SHOW UP. KEEP MOVING.
+            APNA SPORTS SAATHI DHOONDO. <br />
+            <span className="text-[#E76244]">SHOW UP. KHELTE RAHO.</span>
           </h2>
 
           <div>
@@ -482,7 +482,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               onClick={() => onOpenAuth('register')}
               className="bg-[#231215] hover:bg-[#341b20] text-white font-display font-bold text-base uppercase tracking-wider px-10 py-4 rounded-full transition-transform hover:scale-105 shadow-xl inline-flex items-center gap-2"
             >
-              <span>GET STARTED</span>
+              <span>JOIN SPORTS SAATHI</span>
               <ArrowUpRight size={18} className="text-[#CCFF00]" />
             </button>
           </div>

@@ -40,8 +40,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
             onClick={() => onNavigate('home')} 
             className="flex items-center gap-2 cursor-pointer group"
           >
-            <span className="font-display text-2xl font-bold tracking-tight text-[#221013]">
-              MOVE TOGETHER.
+            <span className="font-display text-2xl font-bold tracking-tight text-[#221013] flex items-center gap-1.5">
+              <span>SPORTS SAATHI.</span>
+              <span className="text-[10px] font-mono tracking-widest text-[#E76244] bg-[#FAF3E0] px-2 py-0.5 rounded-full font-extrabold border border-[#E76244]/30 hidden sm:inline-block">
+                INDIA
+              </span>
             </span>
           </div>
 

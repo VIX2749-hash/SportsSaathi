@@ -4,9 +4,13 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Seeding sports and initial platform data...');
+  console.log('Seeding Sports Saathi platform data for India...');
 
-  // 1. Clean existing records if any
+  // 1. Clean existing records in proper dependency order
+  await prisma.equipmentReservation.deleteMany({});
+  await prisma.facilityBooking.deleteMany({});
+  await prisma.equipmentItem.deleteMany({});
+  await prisma.sportsFacility.deleteMany({});
   await prisma.activityMessage.deleteMany({});
   await prisma.message.deleteMany({});
   await prisma.conversation.deleteMany({});
@@ -21,20 +25,20 @@ async function main() {
   await prisma.user.deleteMany({});
   await prisma.sport.deleteMany({});
 
-  // 2. Sports Master List
+  // 2. Sports Master List — Indian athletic favorites
   const sportsData = [
-    { name: 'Running', category: 'Endurance', icon: 'Flame' },
-    { name: 'Badminton', category: 'Racket', icon: 'Activity' },
-    { name: 'Tennis', category: 'Racket', icon: 'CircleDot' },
-    { name: 'Football', category: 'Team', icon: 'Trophy' },
-    { name: 'Basketball', category: 'Team', icon: 'Dribbble' },
-    { name: 'Cycling', category: 'Endurance', icon: 'Bike' },
-    { name: 'Gym & Lifting', category: 'Fitness', icon: 'Dumbbell' },
-    { name: 'Swimming', category: 'Endurance', icon: 'Waves' },
-    { name: 'Hiking', category: 'Outdoor', icon: 'Compass' },
-    { name: 'Yoga', category: 'Fitness', icon: 'Smile' },
-    { name: 'Volleyball', category: 'Team', icon: 'Shield' },
     { name: 'Cricket', category: 'Team', icon: 'Target' },
+    { name: 'Badminton', category: 'Racket', icon: 'Activity' },
+    { name: 'Football', category: 'Team', icon: 'Trophy' },
+    { name: 'Running', category: 'Endurance', icon: 'Flame' },
+    { name: 'Tennis', category: 'Racket', icon: 'CircleDot' },
+    { name: 'Gym & Lifting', category: 'Fitness', icon: 'Dumbbell' },
+    { name: 'Cycling', category: 'Endurance', icon: 'Bike' },
+    { name: 'Swimming', category: 'Endurance', icon: 'Waves' },
+    { name: 'Yoga', category: 'Fitness', icon: 'Smile' },
+    { name: 'Basketball', category: 'Team', icon: 'Dribbble' },
+    { name: 'Volleyball', category: 'Team', icon: 'Shield' },
+    { name: 'Table Tennis', category: 'Racket', icon: 'Activity' },
   ];
 
   const sportsMap: Record<string, any> = {};
@@ -43,44 +47,44 @@ async function main() {
     sportsMap[s.name] = created;
   }
 
-  // 3. Realistic Demo Users
+  // 3. Authentic Indian Athletes / Demo Users
   const passwordHash = await bcrypt.hash('password123', 10);
 
   const usersData = [
     {
-      email: 'alex.rivera@example.com',
-      displayName: 'Alex Rivera',
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-      bio: 'Marathon trainee & casual tennis enthusiast. Looking for early morning interval partners and weekend rally sessions.',
-      city: 'Seattle, WA',
-      area: 'Green Lake / Ballard',
+      email: 'rohan.sharma@gmail.com',
+      displayName: 'Rohan Sharma',
+      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      bio: 'Cricket all-rounder (pace bowler & middle-order bat) and regular weekend 5K runner at Cubbon Park. Looking for net practice partners and weekend box cricket squads!',
+      city: 'Bengaluru, India',
+      area: 'Indiranagar',
       completedOnboarding: true,
-      streakCount: 6,
-      totalSessions: 18,
+      streakCount: 8,
+      totalSessions: 24,
       sports: [
-        { sport: 'Running', level: 'Advanced', goals: 'Train for a marathon, Improve pacing', intensity: 'High' },
-        { sport: 'Tennis', level: 'Intermediate', goals: 'Play socially, Improve backhand rally', intensity: 'Moderate' },
+        { sport: 'Cricket', level: 'Advanced', goals: 'Net bowling practice & box cricket tournaments', intensity: 'High' },
+        { sport: 'Running', level: 'Intermediate', goals: '5K pacing & Cubbon Park weekend morning loops', intensity: 'Moderate' },
       ],
       availabilities: [
-        { day: 'Tuesday', slot: 'Early Morning (5-8 AM)' },
-        { day: 'Thursday', slot: 'Early Morning (5-8 AM)' },
-        { day: 'Saturday', slot: 'Morning (8-12 PM)' },
+        { day: 'Tuesday', slot: 'Evening (5-9 PM)' },
+        { day: 'Thursday', slot: 'Evening (5-9 PM)' },
+        { day: 'Saturday', slot: 'Early Morning (5-8 AM)' },
         { day: 'Sunday', slot: 'Morning (8-12 PM)' },
       ],
     },
     {
-      email: 'sarah.chen@example.com',
-      displayName: 'Sarah Chen',
-      avatarUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
-      bio: 'Badminton club player & weekend trail runner. Always excited for doubles matches or hilly trail 10ks!',
-      city: 'Seattle, WA',
-      area: 'Capitol Hill',
+      email: 'ananya.iyer@gmail.com',
+      displayName: 'Ananya Iyer',
+      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+      bio: 'Competitive badminton club player & yoga enthusiast. Always up for fast doubles rallies at Play Arena or peaceful morning vinyasa sessions.',
+      city: 'Bengaluru, India',
+      area: 'Koramangala',
       completedOnboarding: true,
-      streakCount: 12,
-      totalSessions: 34,
+      streakCount: 14,
+      totalSessions: 42,
       sports: [
-        { sport: 'Badminton', level: 'Advanced', goals: 'Competitive doubles, tournament prep', intensity: 'High' },
-        { sport: 'Running', level: 'Intermediate', goals: 'Stay fit, trail exploration', intensity: 'Moderate' },
+        { sport: 'Badminton', level: 'Advanced', goals: 'Competitive doubles, tournament prep & smash drills', intensity: 'High' },
+        { sport: 'Yoga', level: 'Intermediate', goals: 'Flexibility, pranayama, and core balance', intensity: 'Moderate' },
       ],
       availabilities: [
         { day: 'Monday', slot: 'Evening (5-9 PM)' },
@@ -89,58 +93,58 @@ async function main() {
       ],
     },
     {
-      email: 'marcus.vance@example.com',
-      displayName: 'Marcus Vance',
-      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-      bio: 'Former collegiate soccer player, now organizing friendly pickup football and strength circuits.',
-      city: 'Seattle, WA',
-      area: 'South Lake Union',
+      email: 'vikram.malhotra@gmail.com',
+      displayName: 'Vikram Malhotra',
+      avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+      bio: 'Former university football striker. Organizing weekly 7v7 turf matches in Mumbai & Bandra sea face morning conditioning runs.',
+      city: 'Mumbai, India',
+      area: 'Bandra West',
       completedOnboarding: true,
-      streakCount: 4,
-      totalSessions: 22,
+      streakCount: 9,
+      totalSessions: 31,
       sports: [
-        { sport: 'Football', level: 'Advanced', goals: 'Competitive matches, team chemistry', intensity: 'High' },
-        { sport: 'Gym & Lifting', level: 'Intermediate', goals: 'Strength hypertrophy & conditioning', intensity: 'High' },
+        { sport: 'Football', level: 'Advanced', goals: 'Competitive 7v7 turf leagues, team tactics', intensity: 'High' },
+        { sport: 'Gym & Lifting', level: 'Intermediate', goals: 'Athletic power & functional conditioning', intensity: 'High' },
       ],
       availabilities: [
         { day: 'Tuesday', slot: 'Evening (5-9 PM)' },
         { day: 'Thursday', slot: 'Evening (5-9 PM)' },
-        { day: 'Sunday', slot: 'Afternoon (12-5 PM)' },
-      ],
-    },
-    {
-      email: 'elena.rostova@example.com',
-      displayName: 'Elena Rostova',
-      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
-      bio: 'Beginner runner & yoga practitioner wanting gentle accountability. Pace is 6:30 min/km, conversational & friendly!',
-      city: 'Seattle, WA',
-      area: 'Fremont',
-      completedOnboarding: true,
-      streakCount: 3,
-      totalSessions: 9,
-      sports: [
-        { sport: 'Running', level: 'Beginner', goals: 'Build consistency, run a 5K without stopping', intensity: 'Light' },
-        { sport: 'Yoga', level: 'Intermediate', goals: 'Flexibility and core balance', intensity: 'Moderate' },
-      ],
-      availabilities: [
-        { day: 'Wednesday', slot: 'Morning (8-12 PM)' },
-        { day: 'Friday', slot: 'Morning (8-12 PM)' },
         { day: 'Sunday', slot: 'Morning (8-12 PM)' },
       ],
     },
     {
-      email: 'david.kim@example.com',
-      displayName: 'David Kim',
-      avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
-      bio: 'Cycling enthusiast & weekend hiker. Road bikes on weekdays (30-40km), Cascade hikes on Saturdays.',
-      city: 'Seattle, WA',
-      area: 'Queen Anne',
+      email: 'priya.patel@gmail.com',
+      displayName: 'Priya Patel',
+      avatarUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80',
+      bio: 'Passionate road cyclist & tennis player. Love weekend highway pacelines along Golf Course Road and club tennis rallies.',
+      city: 'Delhi NCR, India',
+      area: 'Gurugram CyberHub',
       completedOnboarding: true,
-      streakCount: 8,
-      totalSessions: 27,
+      streakCount: 6,
+      totalSessions: 19,
       sports: [
-        { sport: 'Cycling', level: 'Advanced', goals: 'Tempo paceline rides, climb elevation', intensity: 'High' },
-        { sport: 'Hiking', level: 'Intermediate', goals: 'Scenic peaks & fresh air', intensity: 'Moderate' },
+        { sport: 'Cycling', level: 'Advanced', goals: '50km highway tempo rides, paceline cruising', intensity: 'High' },
+        { sport: 'Tennis', level: 'Intermediate', goals: 'Baseline rallies & mixed doubles matches', intensity: 'Moderate' },
+      ],
+      availabilities: [
+        { day: 'Wednesday', slot: 'Early Morning (5-8 AM)' },
+        { day: 'Friday', slot: 'Early Morning (5-8 AM)' },
+        { day: 'Sunday', slot: 'Early Morning (5-8 AM)' },
+      ],
+    },
+    {
+      email: 'kabir.sen@gmail.com',
+      displayName: 'Kabir Sen',
+      avatarUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80',
+      bio: 'Casual runner & badminton enthusiast in Hyderabad tech corridor. Looking for evening shuttle drills at Gachibowli indoor stadium.',
+      city: 'Hyderabad, India',
+      area: 'Gachibowli',
+      completedOnboarding: true,
+      streakCount: 5,
+      totalSessions: 14,
+      sports: [
+        { sport: 'Badminton', level: 'Intermediate', goals: 'Evening rallying & doubles match play', intensity: 'Moderate' },
+        { sport: 'Running', level: 'Beginner', goals: 'Build consistency, run 5K without stopping', intensity: 'Light' },
       ],
       availabilities: [
         { day: 'Tuesday', slot: 'Early Morning (5-8 AM)' },
@@ -195,17 +199,17 @@ async function main() {
     createdUsers.push(user);
   }
 
-  // 4. Connect Alex and Sarah as sample connection
-  const conn = await prisma.connection.create({
+  // 4. Sample Connection between Rohan and Ananya
+  await prisma.connection.create({
     data: {
       requesterId: createdUsers[0].id,
       recipientId: createdUsers[1].id,
       status: 'ACCEPTED',
-      message: 'Hey Sarah! Loved your profile, let me know if you want to run Green Lake loop or hit some badminton rallies!',
+      message: 'Hey Ananya! Loved your profile. Up for some badminton drills at Play Arena or a sunrise run at Cubbon Park?',
     },
   });
 
-  // Conversation between Alex & Sarah
+  // Conversation between Rohan & Ananya
   const conv = await prisma.conversation.create({
     data: {
       user1Id: createdUsers[0].id,
@@ -217,7 +221,7 @@ async function main() {
     data: {
       conversationId: conv.id,
       senderId: createdUsers[0].id,
-      body: 'Hey Sarah! Are you free this Thursday for an easy morning loop around the lake?',
+      body: 'Hey Ananya! Are you free this Thursday evening for a shuttle session at Play Arena?',
     },
   });
 
@@ -225,42 +229,42 @@ async function main() {
     data: {
       conversationId: conv.id,
       senderId: createdUsers[1].id,
-      body: 'Hey Alex! Yes definitely, Thursday 6:45 AM works great for me. Let me know the meeting spot!',
+      body: 'Hey Rohan! Yes definitely, Thursday 7:00 PM works great. I have Court #3 booked!',
     },
   });
 
-  // Connection request from Marcus to Alex (PENDING)
+  // Connection request from Vikram to Rohan (PENDING)
   await prisma.connection.create({
     data: {
       requesterId: createdUsers[2].id,
       recipientId: createdUsers[0].id,
       status: 'PENDING',
-      message: 'Hey Alex, looking for an accountability gym partner for lifting sessions at SLU gym. Interested?',
+      message: 'Hey Rohan, noticed you play football too! We have a weekend 7v7 turf pickup match in Bandra when you visit Mumbai. Interested?',
     },
   });
 
-  // 5. Seed Realistic Upcoming Activities
+  // 5. Seed Realistic Indian Activities
   const now = new Date();
   const tomorrowMorning = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-  tomorrowMorning.setHours(7, 0, 0, 0);
+  tomorrowMorning.setHours(6, 30, 0, 0);
 
   const weekendSaturday = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
-  weekendSaturday.setHours(9, 30, 0, 0);
+  weekendSaturday.setHours(17, 0, 0, 0);
 
   const weekendSunday = new Date(now.getTime() + 4 * 24 * 60 * 60 * 1000);
-  weekendSunday.setHours(14, 0, 0, 0);
+  weekendSunday.setHours(18, 30, 0, 0);
 
   const activities = [
     {
       organizerId: createdUsers[0].id,
       sportId: sportsMap['Running'].id,
-      title: 'Sunrise 8K Pace Run — Green Lake Loop',
-      description: 'Moderate pace (5:15 - 5:30 min/km) two loops around Green Lake. We do a 5-minute dynamic warm-up and finish with coffee at the local roaster.',
+      title: 'Sunrise 8K Pace Run — Cubbon Park Loop',
+      description: 'Conversational pace (5:30 - 5:45 min/km) two loops around lush green Cubbon Park. We do a 5-minute dynamic warm-up and finish with south Indian filter coffee & dosas at Airlines Hotel!',
       startsAt: tomorrowMorning,
       durationMinutes: 60,
-      generalLocation: 'Green Lake Park, Seattle',
-      meetingPointDetails: 'Directly in front of Green Lake Community Boathouse, beside the wooden benches.',
-      maxParticipants: 6,
+      generalLocation: 'Cubbon Park, Bengaluru',
+      meetingPointDetails: 'Opposite King Edward Statue entrance, near the wooden park pavilion.',
+      maxParticipants: 10,
       experienceLevel: 'Intermediate',
       intensity: 'Moderate',
       cost: 0.0,
@@ -270,66 +274,66 @@ async function main() {
     {
       organizerId: createdUsers[1].id,
       sportId: sportsMap['Badminton'].id,
-      title: 'Intermediate Doubles & Fast Drills',
-      description: 'Court booked for 2 hours! Need two more players to run friendly competitive doubles matches and rotational play.',
+      title: 'Evening Badminton Doubles & Court Drills',
+      description: 'BWF-standard wooden sprung court booked for 2 hours! Need two more players for high-energy doubles matches and rotational drills. Mavis 350 shuttles provided.',
       startsAt: weekendSaturday,
       durationMinutes: 120,
-      generalLocation: 'Seattle Badminton Club, Kirkland',
-      meetingPointDetails: 'Courts #3 & #4 reserved under Sarah. Shuttles provided, bring non-marking indoor shoes.',
+      generalLocation: 'Play Arena, Sarjapur Road, Bengaluru',
+      meetingPointDetails: 'Indoor Badminton Hall, Court #3 reserved under Ananya. Non-marking gum-sole shoes mandatory!',
       maxParticipants: 4,
       experienceLevel: 'Intermediate',
       intensity: 'High',
-      cost: 12.0,
+      cost: 250.0,
       status: 'OPEN',
-      equipmentNotes: 'Indoor badminton racket. Nylon/feather birds supplied.',
+      equipmentNotes: 'Indoor badminton racket. Yonex Mavis 350 shuttles supplied.',
     },
     {
       organizerId: createdUsers[2].id,
       sportId: sportsMap['Football'].id,
-      title: '7v7 Turf Pickup Football Match',
-      description: 'Casual yet competitive 7v7 soccer match on synthetic turf. Bibs and match balls supplied. Good sportsmanship essential!',
+      title: '7v7 Floodlit Turf Football Match',
+      description: 'Fast-paced, friendly 7v7 soccer under floodlights. High-grade artificial turf, team bibs and match balls provided. Great sportsmanship and fun vibe guaranteed!',
       startsAt: weekendSunday,
       durationMinutes: 90,
-      generalLocation: 'Miller Playfield, Capitol Hill',
-      meetingPointDetails: 'North goal turf sideline near the locker shed.',
+      generalLocation: 'Ares Turf, Bandra West, Mumbai',
+      meetingPointDetails: 'Pitch 1 near the players dugout and reception desk.',
       maxParticipants: 14,
       experienceLevel: 'All Levels',
       intensity: 'High',
-      cost: 5.0,
+      cost: 350.0,
       status: 'OPEN',
-      equipmentNotes: 'Turf boots or soccer cleats, shin guards recommended.',
+      equipmentNotes: 'Turf studs or flat football boots, shin guards recommended.',
     },
     {
-      organizerId: createdUsers[4].id,
+      organizerId: createdUsers[3].id,
       sportId: sportsMap['Cycling'].id,
-      title: 'Mercer Island 40km Tempo Paceline',
-      description: 'Group road bike cruise around Mercer Island. Rolling average pace ~26-29 km/h. Smooth single/double pacelines with regroup points at top of climbs.',
+      title: 'Gurugram 45km Sunrise Highway Paceline',
+      description: 'Group road bike paceline ride along Faridabad-Gurugram highway. Rolling average 27-30 km/h with regroup points at toll plaza. Tail-lights and helmets mandatory.',
       startsAt: weekendSaturday,
       durationMinutes: 90,
-      generalLocation: 'Enatai Beach Park, Bellevue',
-      meetingPointDetails: 'Main parking area near bicycle repair stand.',
+      generalLocation: 'CyberHub / Golf Course Road, Gurugram',
+      meetingPointDetails: 'CyberHub Amphitheatre main plaza parking.',
       maxParticipants: 8,
       experienceLevel: 'Advanced',
       intensity: 'High',
       cost: 0.0,
       status: 'OPEN',
-      equipmentNotes: 'Road bike in good tune, helmet mandatory, front/rear lights.',
+      equipmentNotes: 'Road bike in good tune, helmet mandatory, front/rear strobe lights.',
     },
     {
-      organizerId: createdUsers[3].id,
-      sportId: sportsMap['Running'].id,
-      title: 'Gentle Walk & Run 5K for Beginners',
-      description: 'Welcoming beginner group! Interval of 3 min jog / 2 min walk along the flat Burke-Gilman trail. Nobody gets left behind!',
+      organizerId: createdUsers[0].id,
+      sportId: sportsMap['Cricket'].id,
+      title: 'Shivaji Park Weekend Cricket Nets Session',
+      description: 'Batting and bowling nets practice with season balls! 2 hours of solid net time with pace and spin bowlers. Bring your batting pads, gloves, and helmet.',
       startsAt: weekendSunday,
-      durationMinutes: 45,
-      generalLocation: 'Burke-Gilman Trail, Fremont',
-      meetingPointDetails: 'Fremont Bridge plaza near the stone bench.',
+      durationMinutes: 120,
+      generalLocation: 'Shivaji Park Cricket Ground, Dadar, Mumbai',
+      meetingPointDetails: 'Net #4 on the south side of Shivaji Park pavilion.',
       maxParticipants: 8,
-      experienceLevel: 'Beginner',
-      intensity: 'Light',
-      cost: 0.0,
+      experienceLevel: 'Intermediate',
+      intensity: 'High',
+      cost: 150.0,
       status: 'OPEN',
-      equipmentNotes: 'Comfortable walking or running shoes.',
+      equipmentNotes: 'White cricket kit, batting gear, season leather cricket balls.',
     },
   ];
 
@@ -345,8 +349,8 @@ async function main() {
       },
     });
 
-    // Add Sarah to Alex's run
-    if (act.title.includes('Sunrise 8K')) {
+    // Add Ananya to Rohan's run
+    if (act.title.includes('Cubbon Park')) {
       await prisma.activityParticipant.create({
         data: {
           activityId: createdAct.id,
@@ -360,39 +364,39 @@ async function main() {
         data: {
           activityId: createdAct.id,
           senderId: createdUsers[1].id,
-          body: "Looking forward to this run! Weather looks crisp and clear tomorrow morning.",
+          body: 'Looking forward to this run! Weather looks crisp and clear tomorrow morning in Cubbon Park.',
         },
       });
     }
   }
 
-  // Initial notification for Alex
+  // Initial notification for Rohan
   await prisma.notification.create({
     data: {
       userId: createdUsers[0].id,
       type: 'CONNECTION_REQUEST',
       title: 'New Connection Request',
-      body: 'Marcus Vance sent you a connection request for Gym & Lifting.',
+      body: 'Vikram Malhotra sent you a connection request for Football.',
       link: '/dashboard',
     },
   });
 
-  // 6. Seed Sports Facilities
+  // 6. Seed Indian Sports Facilities
   const facility1 = await prisma.sportsFacility.create({
     data: {
-      ownerId: createdUsers[1].id, // Sarah Chen
-      name: 'Kirkland Premier Badminton Center',
-      description: 'Professional BWF-grade wooden sprung courts with tournament lighting, non-slip vinyl mats, and spectator gallery.',
+      ownerId: createdUsers[1].id, // Ananya Iyer
+      name: 'Play Arena Indoor Badminton & Multi-Sport Hub',
+      description: 'Premium BWF-grade wooden sprung synthetic courts with shadowless tournament LED lighting, air coolers, shower rooms, and pro-stringing shop.',
       facilityType: 'Badminton Court',
       sportCategories: 'Badminton, Racket',
       photos: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=800&q=80',
-      location: 'Kirkland / Totem Lake, Greater Seattle',
-      addressDetails: '11220 120th Ave NE, Kirkland, WA 98034',
-      amenities: 'Showers, Lockers, Water Fountain, Pro Shop, Parking',
-      openingHours: '07:00 - 23:00',
+      location: 'Sarjapur Road / Bellandur, Bengaluru',
+      addressDetails: 'Play Arena, Central Jail Rd, Kasavanahalli, Bengaluru, Karnataka 560035',
+      amenities: 'Showers, Changing Rooms, Free Parking, Pro Shop, Mineral Water, Cafe',
+      openingHours: '06:00 - 23:00',
       bookingDurationRules: '60 min slots (Max 2 consecutive hours)',
       slotDurationMinutes: 60,
-      pricePerSlot: 24.0,
+      pricePerSlot: 450.0,
       requiresApproval: false,
       capacity: 8,
       status: 'ACTIVE',
@@ -401,19 +405,19 @@ async function main() {
 
   const facility2 = await prisma.sportsFacility.create({
     data: {
-      ownerId: createdUsers[2].id, // Marcus Vance
-      name: 'Capitol Hill Synthetic Turf 7v7 Arena',
-      description: 'All-weather FIFA-quality rubber crumb turf pitch with LED floodlighting. Fully enclosed with goals and perimeter netting.',
+      ownerId: createdUsers[2].id, // Vikram Malhotra
+      name: 'Decathlon Multi-Pitch 7v7 Football Turf',
+      description: 'All-weather FIFA-certified rubber crumb turf pitch with high-powered floodlights, player dugout, and 30-foot boundary netting.',
       facilityType: 'Football Ground',
       sportCategories: 'Football, Team',
       photos: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80',
-      location: 'Capitol Hill / Cal Anderson, Seattle',
-      addressDetails: '1635 11th Ave, Seattle, WA 98122',
-      amenities: 'Floodlights, Changing Rooms, Equipment Storage, Spectator Benches',
-      openingHours: '06:00 - 22:00',
+      location: 'Whitefield / Mahadevapura, Bengaluru',
+      addressDetails: 'Decathlon Sports India, ITPL Main Rd, Whitefield, Bengaluru 560048',
+      amenities: 'Floodlights, Changing Rooms, Equipment Storage, Spectator Seating, Drinking Water',
+      openingHours: '06:00 - 23:30',
       bookingDurationRules: '90 min slots',
       slotDurationMinutes: 90,
-      pricePerSlot: 45.0,
+      pricePerSlot: 1400.0,
       requiresApproval: true,
       capacity: 18,
       status: 'ACTIVE',
@@ -422,61 +426,61 @@ async function main() {
 
   const facility3 = await prisma.sportsFacility.create({
     data: {
-      ownerId: createdUsers[0].id, // Alex Rivera
-      name: 'Green Lake Tennis & Pickleball Courts',
-      description: 'Hard-surface outdoor courts resurfaced in 2025. Wind nets and nighttime push-button lighting.',
-      facilityType: 'Tennis Court',
-      sportCategories: 'Tennis, Racket',
-      photos: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80',
-      location: 'Green Lake Park, North Seattle',
-      addressDetails: '7201 E Green Lake Dr N, Seattle, WA 98115',
-      amenities: 'Night Lighting, Water Fountain, Public Restrooms, Nearby Cafe',
-      openingHours: '06:00 - 22:00',
-      bookingDurationRules: '60 min slots',
-      slotDurationMinutes: 60,
-      pricePerSlot: 0.0,
-      requiresApproval: false,
-      capacity: 4,
-      status: 'ACTIVE',
-    },
-  });
-
-  const facility4 = await prisma.sportsFacility.create({
-    data: {
-      ownerId: createdUsers[4].id, // David Kim
-      name: 'Rainier Cricket Nets & Practice Cages',
-      description: 'Two full-length astroturf cricket batting lanes with protective high-tension netting and bowling run-ups.',
+      ownerId: createdUsers[0].id, // Rohan Sharma
+      name: 'Shivaji Park Cricket Nets & Practice Cages',
+      description: 'Historic cricket training turf and practice cages with natural clay pitches and astro-turf lanes. Bowling machine available upon request.',
       facilityType: 'Cricket Nets',
       sportCategories: 'Cricket, Team',
       photos: 'https://images.unsplash.com/photo-1531415074868-036b1c5d53ec?auto=format&fit=crop&w=800&q=80',
-      location: 'Rainier Valley, Seattle',
-      addressDetails: '3720 S Genesee St, Seattle, WA 98118',
-      amenities: 'Practice Nets, Bowling Machine, Gear Lockers',
-      openingHours: '08:00 - 20:00',
+      location: 'Dadar / Shivaji Park, Mumbai',
+      addressDetails: 'Shivaji Park Ground, Dadar West, Mumbai, Maharashtra 400028',
+      amenities: 'Practice Nets, Turf Pitches, Bowling Machine, Gear Lockers, Water Point',
+      openingHours: '06:30 - 19:30',
       bookingDurationRules: '60 min slots',
       slotDurationMinutes: 60,
-      pricePerSlot: 15.0,
+      pricePerSlot: 350.0,
       requiresApproval: false,
       capacity: 6,
       status: 'ACTIVE',
     },
   });
 
-  // 7. Seed Community Equipment Items
+  const facility4 = await prisma.sportsFacility.create({
+    data: {
+      ownerId: createdUsers[3].id, // Priya Patel
+      name: 'Siri Fort Sports Complex Tennis & Pickleball Courts',
+      description: 'Championship synthetic hard-surface outdoor tennis courts resurfaced with anti-glare finish and evening LED lighting.',
+      facilityType: 'Tennis Court',
+      sportCategories: 'Tennis, Racket',
+      photos: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80',
+      location: 'August Kranti Marg, Siri Fort, New Delhi',
+      addressDetails: 'Siri Fort Sports Complex, Khel Gaon Marg, New Delhi 110049',
+      amenities: 'Night Lighting, Locker Rooms, Pro Shop, Refreshment Canteen, Ample Parking',
+      openingHours: '06:00 - 21:30',
+      bookingDurationRules: '60 min slots',
+      slotDurationMinutes: 60,
+      pricePerSlot: 500.0,
+      requiresApproval: false,
+      capacity: 4,
+      status: 'ACTIVE',
+    },
+  });
+
+  // 7. Seed Indian Community Equipment Items
   const eq1 = await prisma.equipmentItem.create({
     data: {
-      ownerId: createdUsers[1].id, // Sarah Chen
+      ownerId: createdUsers[1].id, // Ananya Iyer
       name: 'Yonex Astrox 88D Pro Badminton Rackets (Pair)',
-      description: 'High-end graphite badminton rackets restrung with BG80 at 26 lbs. Comes with thermal padded carry bag and overgrips.',
+      description: 'High-performance Yonex graphite rackets strung with BG65Ti at 26 lbs. Includes thermal padded kit bag and 3 extra grip tapes.',
       sportCategory: 'Badminton',
       condition: 'Excellent',
       totalQuantity: 2,
       sharingType: 'FREE_LENDING',
-      pickupArea: 'Capitol Hill (near Light Rail Station)',
-      pickupAddress: 'Meeting point at Broadway & John St entrance',
+      pickupArea: 'Koramangala 4th Block, Bengaluru',
+      pickupAddress: 'Near Sony World Signal, Koramangala',
       loanDurationRules: 'Up to 3 days loan',
       maxLoanDays: 3,
-      depositRequired: 25.0,
+      depositRequired: 500.0,
       pricePerLoan: 0.0,
       photos: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=700&q=80',
       status: 'AVAILABLE',
@@ -485,15 +489,35 @@ async function main() {
 
   const eq2 = await prisma.equipmentItem.create({
     data: {
-      ownerId: createdUsers[2].id, // Marcus Vance
-      name: 'Adidas FIFA Match Ball & Training Agility Cones',
-      description: 'Official size 5 thermal-bonded soccer match ball, pump with gauge, and set of 20 field agility markers.',
+      ownerId: createdUsers[0].id, // Rohan Sharma
+      name: 'SS Ton Reserve English Willow Cricket Bat + Kit',
+      description: 'Handcrafted Grade 1 English Willow cricket bat with thick edges and light pickup, plus batting gloves and 2 red leather balls.',
+      sportCategory: 'Cricket',
+      condition: 'Excellent',
+      totalQuantity: 1,
+      sharingType: 'PAID_RENTAL',
+      pickupArea: 'Indiranagar 100ft Road, Bengaluru',
+      pickupAddress: 'Near Toit Brewpub, Indiranagar',
+      loanDurationRules: '1 - 4 days',
+      maxLoanDays: 4,
+      depositRequired: 800.0,
+      pricePerLoan: 200.0,
+      photos: 'https://images.unsplash.com/photo-1531415074868-036b1c5d53ec?auto=format&fit=crop&w=700&q=80',
+      status: 'AVAILABLE',
+    },
+  });
+
+  const eq3 = await prisma.equipmentItem.create({
+    data: {
+      ownerId: createdUsers[2].id, // Vikram Malhotra
+      name: 'Nivia Antrix FIFA Match Ball & Agility Markers',
+      description: 'Official match ball with micro-fiber textured PU casing, dual-action air pump with gauge, and set of 20 flat agility discs.',
       sportCategory: 'Football',
       condition: 'Good',
       totalQuantity: 3,
       sharingType: 'FREE_LENDING',
-      pickupArea: 'South Lake Union, Seattle',
-      pickupAddress: 'Available near SLU Park bench #2',
+      pickupArea: 'Bandra West, Mumbai',
+      pickupAddress: 'Carter Road Promenade entrance',
       loanDurationRules: 'Up to 2 days',
       maxLoanDays: 2,
       depositRequired: 0.0,
@@ -503,47 +527,27 @@ async function main() {
     },
   });
 
-  const eq3 = await prisma.equipmentItem.create({
-    data: {
-      ownerId: createdUsers[0].id, // Alex Rivera
-      name: 'Wilson Pro Staff 97 Tennis Racket + Fresh Ball Can',
-      description: 'Mid-plus tournament frame strung with Luxilon ALU Power. Includes fresh pressurized can of Wilson US Open balls.',
-      sportCategory: 'Tennis',
-      condition: 'Excellent',
-      totalQuantity: 1,
-      sharingType: 'PAID_RENTAL',
-      pickupArea: 'Green Lake Community Center',
-      pickupAddress: 'Front lobby of Green Lake Community Center',
-      loanDurationRules: '1 - 4 days',
-      maxLoanDays: 4,
-      depositRequired: 30.0,
-      pricePerLoan: 8.0,
-      photos: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=700&q=80',
-      status: 'AVAILABLE',
-    },
-  });
-
   const eq4 = await prisma.equipmentItem.create({
     data: {
-      ownerId: createdUsers[3].id, // Elena Rostova
-      name: 'Manduka PRO Yoga Mats & Cork Blocks',
-      description: 'High-density 6mm non-slip yoga mat with two natural cork alignment blocks and cotton carrying strap.',
+      ownerId: createdUsers[3].id, // Priya Patel
+      name: 'Manduka Eco Cork High-Density Yoga Mats & Blocks',
+      description: 'Organic natural cork and rubber anti-sweat grip mat, two high-density eva foam blocks, and cotton carrying strap.',
       sportCategory: 'Yoga',
       condition: 'Brand New',
       totalQuantity: 4,
       sharingType: 'FREE_LENDING',
-      pickupArea: 'Fremont, Seattle',
-      pickupAddress: 'Near Fremont Bridge plaza',
+      pickupArea: 'CyberHub, Gurugram',
+      pickupAddress: 'DLF Phase 2 near CyberHub Metro Station',
       loanDurationRules: 'Up to 5 days',
       maxLoanDays: 5,
-      depositRequired: 15.0,
+      depositRequired: 300.0,
       pricePerLoan: 0.0,
       photos: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=700&q=80',
       status: 'AVAILABLE',
     },
   });
 
-  // 8. Sample Facility Booking & Equipment Reservation for Alex Rivera
+  // 8. Sample Facility Booking & Equipment Reservation for Rohan Sharma
   const sampleBookingStart = new Date(now.getTime() + 48 * 60 * 60 * 1000);
   sampleBookingStart.setHours(18, 0, 0, 0);
   const sampleBookingEnd = new Date(sampleBookingStart.getTime() + 60 * 60 * 1000);
@@ -551,12 +555,12 @@ async function main() {
   await prisma.facilityBooking.create({
     data: {
       facilityId: facility1.id,
-      userId: createdUsers[0].id, // Alex booked Sarah's badminton court
+      userId: createdUsers[0].id, // Rohan booked Ananya's badminton court
       startAt: sampleBookingStart,
       endAt: sampleBookingEnd,
-      totalPrice: 24.0,
+      totalPrice: 450.0,
       status: 'CONFIRMED',
-      notes: 'Doubles match training with friends',
+      notes: 'Badminton doubles practice session with partners',
     },
   });
 
@@ -567,20 +571,20 @@ async function main() {
   await prisma.equipmentReservation.create({
     data: {
       equipmentItemId: eq1.id,
-      borrowerId: createdUsers[0].id, // Alex borrowing Sarah's Yonex rackets
+      borrowerId: createdUsers[0].id, // Rohan borrowing Ananya's Yonex rackets
       quantity: 1,
       pickupAt: resvStart,
       expectedReturnAt: resvEnd,
       totalPrice: 0.0,
-      deposit: 25.0,
+      deposit: 500.0,
       status: 'APPROVED',
       approvedBy: createdUsers[1].id,
-      purposeNote: 'Playing badminton session at Kirkland',
-      pickupCondition: 'Racket and strings in immaculate condition',
+      purposeNote: 'Playing badminton session at Play Arena',
+      pickupCondition: 'Rackets and strings in immaculate condition',
     },
   });
 
-  console.log('Database successfully seeded with realistic athletes, activities, sports spaces, and equipment!');
+  console.log('Database successfully seeded with authentic Indian athletes, activities, sports spaces, and gear!');
 }
 
 main()

@@ -65,12 +65,12 @@ export const EquipmentLibrary: React.FC<EquipmentLibraryProps> = ({ onNavigate, 
 
   const sportsFilters = [
     { id: 'ALL', label: 'All Equipment' },
-    { id: 'Badminton', label: 'Badminton' },
-    { id: 'Tennis', label: 'Tennis' },
-    { id: 'Football', label: 'Football' },
-    { id: 'Cricket', label: 'Cricket' },
-    { id: 'Yoga', label: 'Yoga' },
-    { id: 'Cycling', label: 'Cycling' },
+    { id: 'Cricket', label: 'Cricket 🏏' },
+    { id: 'Badminton', label: 'Badminton 🏸' },
+    { id: 'Football', label: 'Football ⚽' },
+    { id: 'Tennis', label: 'Tennis 🎾' },
+    { id: 'Yoga', label: 'Yoga 🧘' },
+    { id: 'Cycling', label: 'Cycling 🚴' },
   ];
 
   const filteredItems = equipmentList.filter((item) => {
@@ -258,7 +258,7 @@ export const EquipmentLibrary: React.FC<EquipmentLibraryProps> = ({ onNavigate, 
                       {item.sharingType === 'FREE_LENDING'
                         ? 'FREE LENDING'
                         : item.sharingType === 'PAID_RENTAL'
-                        ? `$${item.pricePerLoan} RENTAL`
+                        ? `₹${item.pricePerLoan} RENTAL`
                         : 'COMMUNITY POOL'}
                     </div>
 
@@ -298,7 +298,7 @@ export const EquipmentLibrary: React.FC<EquipmentLibraryProps> = ({ onNavigate, 
                           {item.pickupArea}
                         </span>
                         <span className="font-mono text-[11px] font-bold text-[#221013]">
-                          {item.depositRequired > 0 ? `$${item.depositRequired} Deposit` : 'No Deposit'}
+                          {item.depositRequired > 0 ? `₹${item.depositRequired} Deposit` : 'No Deposit'}
                         </span>
                       </div>
 

@@ -200,17 +200,17 @@ export const CreateEquipmentModal: React.FC<CreateEquipmentModalProps> = ({
 
             <div>
               <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#221013]/70 mb-1">
-                Security Deposit ($)
+                Security Deposit (₹)
               </label>
               <div className="relative">
-                <DollarSign size={16} className="absolute left-3 top-3.5 text-neutral-400" />
+                <span className="absolute left-3 top-3.5 text-neutral-400 font-bold text-sm">₹</span>
                 <input
                   type="number"
                   min="0"
-                  step="1"
+                  step="50"
                   value={depositRequired}
                   onChange={(e) => setDepositRequired(Number(e.target.value))}
-                  className="w-full pl-9 pr-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
+                  className="w-full pl-8 pr-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
                 />
               </div>
               <span className="text-[10px] text-neutral-500 mt-1 block">
@@ -220,17 +220,17 @@ export const CreateEquipmentModal: React.FC<CreateEquipmentModalProps> = ({
 
             <div>
               <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#221013]/70 mb-1">
-                Rental Fee / Loan ($)
+                Rental Fee / Loan (₹)
               </label>
               <div className="relative">
-                <DollarSign size={16} className="absolute left-3 top-3.5 text-neutral-400" />
+                <span className="absolute left-3 top-3.5 text-neutral-400 font-bold text-sm">₹</span>
                 <input
                   type="number"
                   min="0"
-                  step="1"
+                  step="50"
                   value={pricePerLoan}
                   onChange={(e) => setPricePerLoan(Number(e.target.value))}
-                  className="w-full pl-9 pr-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
+                  className="w-full pl-8 pr-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
                 />
               </div>
               <span className="text-[10px] text-neutral-500 mt-1 block">
@@ -247,7 +247,7 @@ export const CreateEquipmentModal: React.FC<CreateEquipmentModalProps> = ({
               <input
                 type="text"
                 required
-                placeholder="e.g. Capitol Hill, Seattle"
+                placeholder="e.g. Koramangala, Bengaluru or Bandra, Mumbai"
                 value={pickupArea}
                 onChange={(e) => setPickupArea(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
@@ -263,7 +263,7 @@ export const CreateEquipmentModal: React.FC<CreateEquipmentModalProps> = ({
               </label>
               <input
                 type="text"
-                placeholder="e.g. 1420 11th Ave, Apt 304 or Coffee Shop meet"
+                placeholder="e.g. Near Sony World Signal, 100ft Road"
                 value={pickupAddress}
                 onChange={(e) => setPickupAddress(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"

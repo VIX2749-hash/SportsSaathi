@@ -27,23 +27,24 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
   // Step 1: Basic Profile
   const [displayName, setDisplayName] = useState(user?.displayName || '');
   const [bio, setBio] = useState(user?.bio || '');
-  const [city, setCity] = useState(user?.city || 'Seattle, WA');
-  const [area, setArea] = useState(user?.area || 'Capitol Hill');
+  const [city, setCity] = useState(user?.city || 'Bengaluru, India');
+  const [area, setArea] = useState(user?.area || 'Indiranagar');
 
   // Step 2: Sports
   const availableSports = [
-    { name: 'Running', icon: 'Flame', category: 'Endurance' },
+    { name: 'Cricket', icon: 'Trophy', category: 'Team' },
     { name: 'Badminton', icon: 'Activity', category: 'Racket' },
-    { name: 'Tennis', icon: 'CircleDot', category: 'Racket' },
     { name: 'Football', icon: 'Trophy', category: 'Team' },
-    { name: 'Basketball', icon: 'Dribbble', category: 'Team' },
+    { name: 'Running', icon: 'Flame', category: 'Endurance' },
+    { name: 'Yoga', icon: 'Smile', category: 'Fitness' },
+    { name: 'Tennis', icon: 'CircleDot', category: 'Racket' },
     { name: 'Cycling', icon: 'Bike', category: 'Endurance' },
     { name: 'Gym & Lifting', icon: 'Dumbbell', category: 'Fitness' },
     { name: 'Swimming', icon: 'Waves', category: 'Endurance' },
-    { name: 'Hiking', icon: 'Compass', category: 'Outdoor' },
-    { name: 'Yoga', icon: 'Smile', category: 'Fitness' },
+    { name: 'Table Tennis', icon: 'Activity', category: 'Racket' },
+    { name: 'Kabaddi', icon: 'Flame', category: 'Team' },
   ];
-  const [selectedSports, setSelectedSports] = useState<string[]>(['Running']);
+  const [selectedSports, setSelectedSports] = useState<string[]>(['Cricket', 'Badminton']);
 
   // Step 3: Experience & Goals
   const [experienceLevel, setExperienceLevel] = useState('Intermediate');
@@ -202,7 +203,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                     value={area}
                     onChange={(e) => setArea(e.target.value)}
                     className="w-full px-4 py-3 rounded-xl bg-brand-wine border border-brand-wineBorder text-brand-ivory text-sm focus:border-brand-lime focus:outline-none"
-                    placeholder="e.g. Ballard, Capitol Hill"
+                    placeholder="e.g. Indiranagar, Koramangala, Bandra"
                   />
                 </div>
               </div>

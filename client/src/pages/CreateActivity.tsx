@@ -41,7 +41,7 @@ export const CreateActivity: React.FC<CreateActivityProps> = ({ onNavigate }) =>
   const [durationMinutes, setDurationMinutes] = useState(60);
 
   // Location
-  const [generalLocation, setGeneralLocation] = useState('Green Lake Park, Seattle');
+  const [generalLocation, setGeneralLocation] = useState('Play Arena, Indiranagar, Bengaluru');
   const [meetingPointDetails, setMeetingPointDetails] = useState('');
 
   // Capacity & Rules
@@ -289,7 +289,7 @@ export const CreateActivity: React.FC<CreateActivityProps> = ({ onNavigate }) =>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Green Lake Park, Seattle or Miller Playfield"
+                  placeholder="e.g. Cubbon Park, Bengaluru or Decathlon Turf, Mumbai"
                   value={generalLocation}
                   onChange={(e) => setGeneralLocation(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-white border border-neutral-300 text-[#221013] text-sm focus:border-[#221013] focus:outline-none"
@@ -378,7 +378,7 @@ export const CreateActivity: React.FC<CreateActivityProps> = ({ onNavigate }) =>
 
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-[#221013] mb-1.5">
-                  Cost / Entry Fee (Direct expense share, $0 if free)
+                  Cost / Entry Fee (₹) (Direct expense share, ₹0 if free)
                 </label>
                 <input
                   type="number"

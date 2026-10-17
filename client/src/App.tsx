@@ -74,8 +74,8 @@ export function App() {
       <div className="min-h-screen bg-brand-wine flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-3 border-brand-lime border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <span className="font-display text-xl uppercase tracking-wider text-brand-ivory">
-            Move Together
+          <span className="font-display text-xl uppercase tracking-wider text-[#FAF7F0]">
+            SPORTS SAATHI
           </span>
         </div>
       </div>

@@ -342,7 +342,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ onNavigate }) => {
 
                       <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
                         <span className="font-display uppercase font-bold text-[#221013]">
-                          Fee: {b.totalPrice === 0 ? 'FREE' : `$${b.totalPrice}`}
+                          Fee: {b.totalPrice === 0 ? 'FREE' : `₹${b.totalPrice}`}
                         </span>
 
                         {isCancellable && (
@@ -454,10 +454,10 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ onNavigate }) => {
                       <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
                         <div className="space-x-3">
                           <span className="font-bold text-[#221013]">
-                            Fee: {res.totalCost === 0 ? 'Free' : `$${res.totalCost}`}
+                            Fee: {res.totalCost === 0 ? 'Free' : `₹${res.totalCost}`}
                           </span>
                           <span className="text-neutral-500">
-                            Deposit: ${res.depositHeld}
+                            Deposit: ₹{res.depositHeld}
                           </span>
                         </div>
 
@@ -518,7 +518,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ onNavigate }) => {
 
                       <div className="text-xs text-neutral-600 space-y-1">
                         <div>Time: {new Date(b.startAt).toLocaleString()} - {new Date(b.endAt).toLocaleTimeString()}</div>
-                        <div>Fee: ${b.totalPrice}</div>
+                        <div>Fee: ₹{b.totalPrice}</div>
                         {b.notes && <div className="italic text-neutral-500">"{b.notes}"</div>}
                       </div>
 
@@ -579,7 +579,7 @@ export const MyBookings: React.FC<MyBookingsProps> = ({ onNavigate }) => {
 
                       <div className="text-xs text-neutral-600 space-y-1">
                         <div>Duration: {new Date(res.startAt).toLocaleDateString()} to {new Date(res.endAt).toLocaleDateString()}</div>
-                        <div>Deposit: ${res.depositHeld} • Fee: ${res.totalCost}</div>
+                        <div>Deposit: ₹{res.depositHeld} • Fee: ₹{res.totalCost}</div>
                         {res.notes && <div className="italic text-neutral-500">"{res.notes}"</div>}
                       </div>
 

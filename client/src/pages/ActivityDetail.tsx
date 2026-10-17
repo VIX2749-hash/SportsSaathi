@@ -287,7 +287,7 @@ export const ActivityDetail: React.FC<ActivityDetailProps> = ({
                 </span>
               </div>
               <div className="text-xs font-mono text-[#221013] font-bold">
-                Official Move Together Community Bracket
+                Official Sports Saathi Community Bracket
               </div>
             </div>
           )}
@@ -350,7 +350,7 @@ export const ActivityDetail: React.FC<ActivityDetailProps> = ({
                 Cost Breakdown
               </span>
               <div className="text-base font-display font-bold text-[#221013]">
-                {activity.cost === 0 ? 'FREE SESSION' : `$${activity.cost.toFixed(2)}`}
+                {activity.cost === 0 ? 'FREE SESSION' : `₹${activity.cost}`}
               </div>
               <span className="text-[10px] text-neutral-500">Court fee share (no in-app markup)</span>
             </div>

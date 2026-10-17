@@ -18,7 +18,7 @@ export function validateSportsBio(bio: string): { isValid: boolean; reason?: str
     if (lower.includes(word)) {
       return {
         isValid: false,
-        reason: `Bio contains restricted romantic/dating phrase ("${word}"). Move Together is strictly a sports and athletic partnership platform.`,
+        reason: `Bio contains restricted romantic/dating phrase ("${word}"). Sports Saathi is strictly a sports and athletic partnership platform.`,
       };
     }
   }

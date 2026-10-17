@@ -20,8 +20,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialMode, onClo
 
   // Custom prompt for Google account testing
   const [googlePromptOpen, setGooglePromptOpen] = useState(false);
-  const [googleEmail, setGoogleEmail] = useState('athlete.google@gmail.com');
-  const [googleName, setGoogleName] = useState('Alex Rivers');
+  const [googleEmail, setGoogleEmail] = useState('rohan.sharma@gmail.com');
+  const [googleName, setGoogleName] = useState('Rohan Sharma');
 
   if (!isOpen) return null;
 
@@ -72,12 +72,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialMode, onClo
   const handleDemoLogin = async (demoEmail: string) => {
     setError(null);
     setLoading(true);
+    setEmail(demoEmail);
+    setPassword('password123');
     try {
       await login(demoEmail, 'password123');
       onSuccess();
       onClose();
     } catch (err: any) {
-      setError('Demo login failed');
+      setError(err.message || 'Demo login failed');
     } finally {
       setLoading(false);
     }
@@ -98,13 +100,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialMode, onClo
         {/* Modal Header */}
         <div className="mb-6">
           <span className="inline-block px-3 py-1 mb-3 bg-brand-lime text-brand-dark font-display font-bold text-xs uppercase rounded-md tracking-wider">
-            {mode === 'login' ? 'Athletic Access' : 'Join Move Together'}
+            {mode === 'login' ? 'Athletic Access' : 'Join Sports Saathi'}
           </span>
           <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-tight text-brand-ivory leading-none">
             {mode === 'login' ? 'Welcome Back' : 'Create Athlete Profile'}
           </h2>
           <p className="text-xs text-brand-ivoryMuted mt-2">
-            Find compatible training partners and join verified sports meetups in your area.
+            Find compatible training partners and discover verified sports spaces across your city.
           </p>
         </div>
 
@@ -212,7 +214,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialMode, onClo
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Jordan Miller"
+                  placeholder="e.g. Rohan Sharma"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-brand-wine border border-brand-wineBorder text-brand-ivory placeholder-brand-ivoryMuted/50 text-xs focus:outline-none focus:border-brand-lime transition-colors"
@@ -272,20 +274,36 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialMode, onClo
         {/* Demo Accounts Quick Login */}
         <div className="mt-6 pt-5 border-t border-brand-wineBorder/60">
           <p className="text-[10px] font-bold uppercase tracking-wider text-brand-ivoryMuted mb-2 text-center">
-            Or one-click test with seeded athletes:
+            One-Click Test with Demo Athletes:
           </p>
           <div className="grid grid-cols-2 gap-2">
             <button
-              onClick={() => handleDemoLogin('alex.rivera@example.com')}
-              className="py-1.5 px-2 bg-brand-wine hover:bg-brand-wineHover border border-brand-wineBorder rounded-lg text-[11px] text-brand-ivory text-left truncate transition-colors"
+              onClick={() => handleDemoLogin('rohan.sharma@gmail.com')}
+              className="py-1.5 px-2 bg-brand-wine hover:bg-brand-wineHover border border-brand-wineBorder hover:border-brand-lime rounded-lg text-[11px] text-brand-ivory text-left truncate transition-colors flex items-center gap-1.5"
             >
-              🏃 Alex (Marathoner)
+              <span>🏏</span>
+              <span className="truncate">Rohan (Cricket & 5K)</span>
             </button>
             <button
-              onClick={() => handleDemoLogin('sarah.chen@example.com')}
-              className="py-1.5 px-2 bg-brand-wine hover:bg-brand-wineHover border border-brand-wineBorder rounded-lg text-[11px] text-brand-ivory text-left truncate transition-colors"
+              onClick={() => handleDemoLogin('ananya.iyer@gmail.com')}
+              className="py-1.5 px-2 bg-brand-wine hover:bg-brand-wineHover border border-brand-wineBorder hover:border-brand-lime rounded-lg text-[11px] text-brand-ivory text-left truncate transition-colors flex items-center gap-1.5"
             >
-              🏸 Sarah (Badminton)
+              <span>🏸</span>
+              <span className="truncate">Ananya (Badminton)</span>
+            </button>
+            <button
+              onClick={() => handleDemoLogin('vikram.malhotra@gmail.com')}
+              className="py-1.5 px-2 bg-brand-wine hover:bg-brand-wineHover border border-brand-wineBorder hover:border-brand-lime rounded-lg text-[11px] text-brand-ivory text-left truncate transition-colors flex items-center gap-1.5"
+            >
+              <span>⚽</span>
+              <span className="truncate">Vikram (Turf 7v7)</span>
+            </button>
+            <button
+              onClick={() => handleDemoLogin('alex.rivera@example.com')}
+              className="py-1.5 px-2 bg-brand-wine hover:bg-brand-wineHover border border-brand-wineBorder hover:border-brand-lime rounded-lg text-[11px] text-brand-ivory text-left truncate transition-colors flex items-center gap-1.5 opacity-90"
+            >
+              <span>🏃</span>
+              <span className="truncate">Alex (Marathoner)</span>
             </button>
           </div>
         </div>

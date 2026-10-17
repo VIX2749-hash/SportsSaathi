@@ -527,9 +527,9 @@ router.get('/:id/calendar.ics', async (req, res: Response): Promise<void> => {
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Move Together//Sports Partner Platform//EN',
+      'PRODID:-//Sports Saathi//Sports Partner Platform//EN',
       'BEGIN:VEVENT',
-      `UID:${act.id}@movetogether.app`,
+      `UID:${act.id}@sportssaathi.in`,
       `DTSTAMP:${formatIcsDate(new Date())}`,
       `DTSTART:${formatIcsDate(start)}`,
       `DTEND:${formatIcsDate(end)}`,

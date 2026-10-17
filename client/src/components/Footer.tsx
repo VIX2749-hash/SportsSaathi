@@ -10,7 +10,10 @@ export const Footer: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavi
           {/* Logo Brand */}
           <div className="flex items-center gap-2">
             <span className="font-display text-xl font-bold uppercase tracking-tight text-[#221013]">
-              MOVE TOGETHER.
+              SPORTS SAATHI.
+            </span>
+            <span className="text-[10px] font-mono text-[#E76244] font-bold">
+              खेल साथी
             </span>
           </div>
 
@@ -23,20 +26,20 @@ export const Footer: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavi
               Help
             </button>
             <button onClick={() => onNavigate('safety')} className="hover:text-[#221013] transition-colors">
+              Safety & Verification
+            </button>
+            <button onClick={() => onNavigate('safety')} className="hover:text-[#221013] transition-colors">
               Privacy
             </button>
             <button onClick={() => onNavigate('safety')} className="hover:text-[#221013] transition-colors">
               Terms
             </button>
-            <button onClick={() => onNavigate('safety')} className="hover:text-[#221013] transition-colors">
-              Contact
-            </button>
           </div>
 
         </div>
 
-        <div className="mt-8 pt-6 border-t border-neutral-200 text-center text-[11px] text-[#221013]/40">
-          © {new Date().getFullYear()} MOVE TOGETHER. ALL RIGHTS RESERVED. FIND YOUR PEOPLE. SHOW UP. KEEP MOVING.
+        <div className="mt-8 pt-6 border-t border-neutral-200 text-center text-[11px] text-[#221013]/50">
+          © {new Date().getFullYear()} SPORTS SAATHI (खेल साथी). ALL RIGHTS RESERVED. FIND YOUR PEOPLE. SHOW UP. KHELTE RAHO.
         </div>
       </div>
     </footer>

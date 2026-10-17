@@ -25,7 +25,16 @@ app.use(
 
 app.use(express.json());
 
-// Routes
+// 1. Health check endpoint (always priority)
+app.get('/api/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    platform: 'Sports Saathi Full Stack API (Sports Partners + Spaces + Equipment — Bharat 🇮🇳)',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// 2. Specific routes
 app.use('/api/auth', authRoutes);
 app.use('/api/partners', partnersRoutes);
 app.use('/api/connections', connectionsRoutes);
@@ -33,20 +42,19 @@ app.use('/api/activities', activitiesRoutes);
 app.use('/api/messages', messagesRoutes);
 app.use('/api/facilities', facilitiesRoutes);
 app.use('/api/equipment', equipmentRoutes);
-app.use('/api', facilitiesRoutes); // Also maps /api/my/facility-bookings
-app.use('/api', equipmentRoutes);  // Also maps /api/my/equipment-reservations
-app.use('/api', miscRoutes);       // /api/notifications, /api/safety, /api/sports, /api/blocks
+app.use('/api', miscRoutes); // /api/notifications, /api/safety, /api/sports, /api/blocks
 
-// Health check
-app.get('/api/health', (_req, res) => {
-  res.json({
-    status: 'ok',
-    platform: 'Move Together Full Stack API (Sports Partners + Spaces + Equipment)',
-    timestamp: new Date().toISOString(),
-  });
+// 3. User bookings and reservations bridge routes
+app.get('/api/my/facility-bookings', (req, res, next) => {
+  req.url = '/my/facility-bookings';
+  facilitiesRoutes(req, res, next);
+});
+app.get('/api/my/equipment-reservations', (req, res, next) => {
+  req.url = '/my/equipment-reservations';
+  equipmentRoutes(req, res, next);
 });
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Move Together Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Sports Saathi Server running on http://localhost:${PORT}`);
 });

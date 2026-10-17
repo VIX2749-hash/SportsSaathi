@@ -175,7 +175,7 @@ export const CreateFacilityModal: React.FC<CreateFacilityModalProps> = ({
               <input
                 type="text"
                 required
-                placeholder="e.g. South Lake Union, Seattle"
+                placeholder="e.g. Indiranagar, Bengaluru or Bandra, Mumbai"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
@@ -191,7 +191,7 @@ export const CreateFacilityModal: React.FC<CreateFacilityModalProps> = ({
               </label>
               <input
                 type="text"
-                placeholder="e.g. Building B, Gate 4, 1204 Mercer St"
+                placeholder="e.g. Court 3, Sports Complex, 12th Main Road"
                 value={addressDetails}
                 onChange={(e) => setAddressDetails(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
@@ -223,17 +223,18 @@ export const CreateFacilityModal: React.FC<CreateFacilityModalProps> = ({
 
             <div>
               <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#221013]/70 mb-1">
-                Price Per Slot ($)
+                Price Per Slot (₹)
               </label>
               <div className="relative">
-                <DollarSign size={16} className="absolute left-3 top-3.5 text-neutral-400" />
+                <span className="absolute left-3 top-3.5 text-neutral-400 font-bold text-sm">₹</span>
                 <input
                   type="number"
                   min="0"
-                  step="1"
+                  step="50"
+                  placeholder="350"
                   value={pricePerSlot}
                   onChange={(e) => setPricePerSlot(Number(e.target.value))}
-                  className="w-full pl-9 pr-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
+                  className="w-full pl-8 pr-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
                 />
               </div>
               <span className="text-[10px] text-neutral-500 mt-1 block">

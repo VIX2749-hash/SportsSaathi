@@ -110,7 +110,7 @@ export const SportsSpaces: React.FC<SportsSpacesProps> = ({ onNavigate, onOpenAu
             </h1>
 
             <p className="text-white/70 text-sm sm:text-base font-sans">
-              Discover verified badminton courts, turf football pitches, cricket cages, and open public tracks. Book slots atomically without booking conflicts.
+              Discover verified badminton wooden courts, FIFA-grade turf pitches, cricket nets, and public tracks across Bengaluru, Mumbai, Delhi NCR, Hyderabad, and Pune. Book slots atomically without booking clashes.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3">
@@ -168,7 +168,7 @@ export const SportsSpaces: React.FC<SportsSpacesProps> = ({ onNavigate, onOpenAu
               <Search size={15} className="absolute left-3.5 top-3 text-neutral-400" />
               <input
                 type="text"
-                placeholder="Search location or venue..."
+                placeholder="Search area (e.g. Indiranagar, Bandra)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-9 pr-4 py-2 rounded-full bg-white border border-neutral-300 text-xs font-sans text-[#221013] focus:outline-none focus:border-[#221013]"
@@ -234,7 +234,7 @@ export const SportsSpaces: React.FC<SportsSpacesProps> = ({ onNavigate, onOpenAu
 
                   {/* Price Tag */}
                   <div className="absolute top-3 right-3 bg-[#CCFF00] text-[#121212] text-xs font-display uppercase tracking-wider px-3 py-1 rounded-full font-bold shadow-sm">
-                    {facility.pricePerSlot === 0 ? 'FREE GROUND' : `$${facility.pricePerSlot} / SLOT`}
+                    {facility.pricePerSlot === 0 ? 'FREE GROUND' : `₹${facility.pricePerSlot} / SLOT`}
                   </div>
 
                   {/* Privacy Badge on Location */}

@@ -268,7 +268,7 @@ export const ActivityCatalog: React.FC<ActivityCatalogProps> = ({ onNavigate, on
 
                       {/* Fee Pill Top Right */}
                       <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#231215]/90 text-white text-[11px] font-mono font-bold">
-                        {act.cost === 0 ? 'FREE' : `$${act.cost.toFixed(2)}`}
+                        {act.cost === 0 ? 'FREE' : `₹${act.cost}`}
                       </span>
 
                       {/* Date bottom overlay */}

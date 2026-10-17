@@ -107,7 +107,7 @@ export const BookFacilityModal: React.FC<BookFacilityModalProps> = ({
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Total Price:</span>
-                <span className="font-bold text-[#221013]">{totalPrice === 0 ? 'Free' : `$${totalPrice}`}</span>
+                <span className="font-bold text-[#221013]">{totalPrice === 0 ? 'Free' : `₹${totalPrice}`}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">Status:</span>
@@ -218,7 +218,7 @@ export const BookFacilityModal: React.FC<BookFacilityModalProps> = ({
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-[#221013]/70 font-sans">Rate per slot:</span>
                   <span className="font-bold text-[#221013]">
-                    {facility.pricePerSlot === 0 ? 'Free Community Space' : `$${facility.pricePerSlot}`}
+                    {facility.pricePerSlot === 0 ? 'Free Community Space' : `₹${facility.pricePerSlot}`}
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
@@ -228,11 +228,11 @@ export const BookFacilityModal: React.FC<BookFacilityModalProps> = ({
                 <div className="pt-2 border-t border-neutral-300/60 flex justify-between items-center">
                   <span className="font-display uppercase text-xs font-bold text-[#221013]">Total Estimated Fee:</span>
                   <span className="font-display text-xl font-bold text-[#221013]">
-                    {totalPrice === 0 ? 'FREE' : `$${totalPrice}`}
+                    {totalPrice === 0 ? 'FREE' : `₹${totalPrice}`}
                   </span>
                 </div>
                 <div className="text-[10px] text-neutral-500 font-sans pt-1">
-                  * Move Together provides informational directory pricing only; ground fees are settled directly on arrival.
+                  * Sports Saathi provides informational directory pricing only; ground fees are settled directly on arrival.
                 </div>
               </div>
 

@@ -398,7 +398,7 @@ export const PartnerDiscovery: React.FC<PartnerDiscoveryProps> = ({ onNavigate, 
                   Verified Local Standings
                 </span>
                 <h2 className="font-display text-3xl uppercase tracking-tight text-[#221013]">
-                  Seattle Athletic Leaderboard
+                  All-India Athletic Leaderboard 🇮🇳
                 </h2>
                 <p className="text-xs text-neutral-500 mt-1 font-sans">
                   Points awarded for verified check-ins (+50), hosting sessions (+25), and consistent weekly streaks.
