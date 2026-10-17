@@ -33,25 +33,31 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
   useEffect(() => {
     if (!user) return;
 
+    let isMounted = true;
     const loadDashboardData = async () => {
       try {
         const [actRes, partRes, connRes] = await Promise.all([
-          apiRequest<{ activities: Activity[] }>('/activities'),
-          apiRequest<{ partners: Partner[] }>('/partners'),
-          apiRequest<{ received: any[] }>('/connections'),
+          apiRequest<{ activities: Activity[] }>('/activities').catch(() => ({ activities: [] })),
+          apiRequest<{ partners: Partner[] }>('/partners').catch(() => ({ partners: [] })),
+          apiRequest<{ received: any[] }>('/connections').catch(() => ({ received: [] })),
         ]);
 
-        setActivities(actRes.activities);
-        setPartners(partRes.partners);
-        setPendingRequests(connRes.received.filter((r) => r.status === 'PENDING'));
+        if (!isMounted) return;
+        setActivities(Array.isArray(actRes?.activities) ? actRes.activities : []);
+        setPartners(Array.isArray(partRes?.partners) ? partRes.partners : []);
+        const rec = Array.isArray(connRes?.received) ? connRes.received : [];
+        setPendingRequests(rec.filter((r) => r && r.status === 'PENDING'));
       } catch (err: any) {
         console.error('Dashboard load error:', err);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     loadDashboardData();
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
 
   const handleRespondConnection = async (connectionId: string, status: 'ACCEPTED' | 'DECLINED') => {
@@ -60,7 +66,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
         method: 'PATCH',
         body: JSON.stringify({ status }),
       });
-      setPendingRequests((prev) => prev.filter((r) => r.id !== connectionId));
+      setPendingRequests((prev) => (prev || []).filter((r) => r && r.id !== connectionId));
       if (status === 'ACCEPTED') {
         onNavigate('messages');
       }
@@ -85,7 +91,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
     );
   }
 
-  const myUpcoming = activities.filter((act) => act.isUserJoined || act.isOrganizer);
+  const safeActivities = Array.isArray(activities) ? activities : [];
+  const safePartners = Array.isArray(partners) ? partners : [];
+  const safePending = Array.isArray(pendingRequests) ? pendingRequests : [];
+
+  const myUpcoming = safeActivities.filter((act) => act && (act.isUserJoined || act.isOrganizer));
+  const displayName = user.displayName || 'Athlete';
+  const firstName = displayName.split(' ')[0] || 'Athlete';
 
   return (
     <div className="bg-[#FAF7F0] text-[#221013] min-h-screen py-8 sm:py-12">
@@ -98,11 +110,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
               <span className="px-3 py-1 rounded-full bg-[#FAF7F0] text-[#221013] border border-neutral-300 text-xs font-mono font-bold uppercase">
                 Athlete Dashboard
               </span>
-              <span className="text-xs text-neutral-500 font-medium">{user.city}</span>
+              <span className="text-xs text-neutral-500 font-medium">{user.city || 'India'}</span>
             </div>
 
             <h1 className="font-display text-4xl sm:text-6xl uppercase tracking-tight text-[#221013] leading-none">
-              Welcome Back, <span className="text-[#E76244]">{user.displayName.split(' ')[0]}</span>
+              Welcome Back, <span className="text-[#E76244]">{firstName}</span>
             </h1>
 
             <p className="text-sm text-neutral-600 max-w-xl font-sans">
@@ -117,24 +129,25 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
             </div>
             <div>
               <span className="font-display text-3xl font-bold text-[#221013] block leading-tight">
-                {user.streakCount} Week Streak
+                {user.streakCount || 0} Week Streak
               </span>
               <span className="text-[11px] font-mono uppercase text-neutral-500 font-bold">
-                {user.totalSessions} Total Sessions Completed
+                {user.totalSessions || 0} Total Sessions Completed
               </span>
             </div>
           </div>
         </div>
 
         {/* Pending Requests Alert */}
-        {pendingRequests.length > 0 && (
+        {safePending.length > 0 && (
           <div className="bg-white border-2 border-[#CCFF00] rounded-[28px] p-6 shadow-sm">
             <div className="flex items-center gap-2 mb-4 text-[#221013] font-mono text-xs uppercase font-bold tracking-wider">
-              <UserPlus size={16} className="text-[#E76244]" /> Pending Sports Connection Requests ({pendingRequests.length})
+              <UserPlus size={16} className="text-[#E76244]" /> Pending Sports Connection Requests ({safePending.length})
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {pendingRequests.map((req) => (
+              {safePending.map((req) => (
+
                 <div
                   key={req.id}
                   className="bg-[#FAF7F0] p-4 rounded-2xl border border-neutral-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
@@ -142,12 +155,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
                   <div className="flex items-center gap-3">
                     <img
                       src={req.requester?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
-                      alt={req.requester?.displayName}
+                      alt={req.requester?.displayName || 'Sports Athlete'}
                       className="w-11 h-11 rounded-full object-cover border border-[#221013]"
                     />
                     <div>
                       <h4 className="font-display text-lg uppercase text-[#221013] leading-none">
-                        {req.requester?.displayName}
+                        {req.requester?.displayName || 'Sports Athlete'}
                       </h4>
                       <p className="text-xs text-neutral-500 italic line-clamp-1 mt-0.5">
                         "{req.message || 'Wants to connect'}"
@@ -255,7 +268,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <span className="px-2.5 py-1 rounded-md bg-[#FAF7F0] text-[#221013] border border-neutral-200 text-[11px] font-mono font-bold uppercase">
-                        {act.sport.name}
+                        {act.sport?.name || 'Sport'}
                       </span>
                       <span className="text-xs text-neutral-500 font-medium">
                         {new Date(act.startsAt).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
@@ -295,12 +308,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
               onClick={() => onNavigate('partners')}
               className="text-xs font-bold uppercase text-[#E76244] hover:underline"
             >
-              View Directory ({partners.length})
+              View Directory ({safePartners.length})
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {partners.slice(0, 3).map((p) => (
+            {safePartners.slice(0, 3).map((p) => (
               <div
                 key={p.id}
                 className="bg-white rounded-[24px] border border-neutral-200 p-6 flex flex-col justify-between shadow-sm"
@@ -310,12 +323,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
                     <div className="flex items-center gap-3">
                       <img
                         src={p.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
-                        alt={p.displayName}
+                        alt={p.displayName || 'Athlete'}
                         className="w-12 h-12 rounded-full object-cover border border-[#221013]"
                       />
                       <div>
-                        <h4 className="font-display text-xl uppercase text-[#221013] leading-none">{p.displayName}</h4>
-                        <p className="text-xs text-neutral-500 mt-1">{p.area || p.city}</p>
+                        <h4 className="font-display text-xl uppercase text-[#221013] leading-none">{p.displayName || 'Athlete'}</h4>
+                        <p className="text-xs text-neutral-500 mt-1">{p.area || p.city || 'India'}</p>
                       </div>
                     </div>
                     <span className="font-display text-lg font-bold text-[#E76244]">
@@ -330,7 +343,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
 
                 <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
                   <span className="text-xs font-mono text-neutral-500">
-                    {p.sports[0]?.sport?.name || 'Multi-Sport'}
+                    {p.sports?.[0]?.sport?.name || 'Multi-Sport'}
                   </span>
                   <button
                     onClick={() => onNavigate('partners')}

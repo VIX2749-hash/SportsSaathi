@@ -73,24 +73,49 @@ export async function apiRequest<T = any>(endpoint: string, options: RequestInit
 function getFallbackForEndpoint<T>(endpoint: string): T | null {
   const path = endpoint.split('?')[0];
 
-  if (path === '/facilities' || path.startsWith('/facilities')) {
-    // Check local storage for any user-created spaces
+  if (path.startsWith('/facilities')) {
     const localSpaces = JSON.parse(localStorage.getItem('mt_user_spaces') || '[]');
-    return { facilities: [...localSpaces, ...FALLBACK_FACILITIES], total: FALLBACK_FACILITIES.length + localSpaces.length } as unknown as T;
+    const allSpaces = [...localSpaces, ...FALLBACK_FACILITIES];
+    const id = path.replace('/facilities/', '').replace('/facilities', '');
+    if (id) {
+      const match = allSpaces.find((s) => s.id === id) || allSpaces[0];
+      return { facility: match } as unknown as T;
+    }
+    return { facilities: allSpaces, total: allSpaces.length } as unknown as T;
   }
 
-  if (path === '/equipment' || path.startsWith('/equipment')) {
+  if (path.startsWith('/equipment')) {
     const localGear = JSON.parse(localStorage.getItem('mt_user_equipment') || '[]');
-    return { equipment: [...localGear, ...FALLBACK_EQUIPMENT], total: FALLBACK_EQUIPMENT.length + localGear.length } as unknown as T;
+    const allGear = [...localGear, ...FALLBACK_EQUIPMENT];
+    const id = path.replace('/equipment/', '').replace('/equipment', '');
+    if (id) {
+      const match = allGear.find((g) => g.id === id) || allGear[0];
+      return { equipmentItem: match } as unknown as T;
+    }
+    return { equipment: allGear, total: allGear.length } as unknown as T;
   }
 
-  if (path === '/activities' || path.startsWith('/activities')) {
+  if (path.startsWith('/activities')) {
     const localActs = JSON.parse(localStorage.getItem('mt_user_activities') || '[]');
-    return { activities: [...localActs, ...FALLBACK_ACTIVITIES], total: FALLBACK_ACTIVITIES.length + localActs.length } as unknown as T;
+    const allActs = [...localActs, ...FALLBACK_ACTIVITIES];
+    const id = path.replace('/activities/', '').replace('/activities', '');
+    if (id) {
+      const match = allActs.find((a) => a.id === id) || allActs[0];
+      return { activity: match } as unknown as T;
+    }
+    return { activities: allActs, total: allActs.length } as unknown as T;
+  }
+
+  if (path === '/partners/leaderboard' || path.startsWith('/partners/leaderboard')) {
+    return { leaderboard: FALLBACK_PARTNERS } as unknown as T;
   }
 
   if (path === '/partners' || path.startsWith('/partners')) {
     return { partners: FALLBACK_PARTNERS, total: FALLBACK_PARTNERS.length } as unknown as T;
+  }
+
+  if (path === '/connections' || path.startsWith('/connections')) {
+    return { sent: [], received: [], activityInvites: [] } as unknown as T;
   }
 
   if (path === '/sports') {
@@ -107,11 +132,15 @@ function getFallbackForEndpoint<T>(endpoint: string): T | null {
     return { reservations: localResvs, incomingRequests: [] } as unknown as T;
   }
 
-  if (path === '/notifications') {
-    return { notifications: [] } as unknown as T;
+  if (path === '/notifications' || path.startsWith('/notifications')) {
+    return { notifications: [], unreadCount: 0 } as unknown as T;
   }
 
-  if (path === '/safety/status') {
+  if (path === '/messages/conversations' || path.startsWith('/messages')) {
+    return { conversations: [], messages: [], otherUser: null } as unknown as T;
+  }
+
+  if (path === '/safety/status' || path.startsWith('/safety')) {
     return { safetyStatus: 'SECURE', isRestricted: false } as unknown as T;
   }
 
@@ -182,5 +211,44 @@ function getMockWriteResponse<T>(endpoint: string, body?: any): T | null {
     return { equipmentItem: newEq } as unknown as T;
   }
 
+  // Activities fallback
+  if (path === '/activities') {
+    const newAct = {
+      id: `act-${Date.now()}`,
+      ...payload,
+      createdAt: new Date().toISOString(),
+      currentParticipants: 1,
+      isOrganizer: true,
+      isUserJoined: true,
+      organizer: { displayName: 'You', avatarUrl: null, points: 150 },
+    };
+    const existing = JSON.parse(localStorage.getItem('mt_user_activities') || '[]');
+    localStorage.setItem('mt_user_activities', JSON.stringify([newAct, ...existing]));
+    return { activity: newAct, message: 'Activity created successfully!' } as unknown as T;
+  }
+
+  // Connections update/respond fallback
+  if (path.startsWith('/connections')) {
+    return { message: 'Connection updated successfully' } as unknown as T;
+  }
+
+  // Notifications fallback
+  if (path.startsWith('/notifications')) {
+    return { message: 'Notifications marked as read' } as unknown as T;
+  }
+
+  // Messages fallback
+  if (path.startsWith('/messages')) {
+    return {
+      message: {
+        id: `msg-${Date.now()}`,
+        content: payload.content || '',
+        createdAt: new Date().toISOString(),
+        senderId: 'me',
+      },
+    } as unknown as T;
+  }
+
   return null;
 }
+
