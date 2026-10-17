@@ -32,27 +32,24 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
 
   return (
     <header className="sticky top-0 z-50 bg-[#FAF7F0]/95 backdrop-blur-md border-b border-neutral-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20 gap-3 xl:gap-6">
           
           {/* Logo Branding */}
           <div 
             onClick={() => onNavigate('home')} 
-            className="flex items-center gap-2 cursor-pointer group"
+            className="flex items-center cursor-pointer group shrink-0"
           >
-            <span className="font-display text-2xl font-bold tracking-tight text-[#221013] flex items-center gap-1.5">
-              <span>SPORTS SAATHI.</span>
-              <span className="text-[10px] font-mono tracking-widest text-[#E76244] bg-[#FAF3E0] px-2 py-0.5 rounded-full font-extrabold border border-[#E76244]/30 hidden sm:inline-block">
-                INDIA
-              </span>
+            <span className="font-display text-2xl font-bold tracking-tight text-[#221013] whitespace-nowrap">
+              SPORTS SAATHI.
             </span>
           </div>
 
           {/* Desktop Links (3 Pillars + Dashboard) */}
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-5 shrink-0">
             <button
               onClick={() => onNavigate('partners')}
-              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+              className={`text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors ${
                 currentTab === 'partners' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
               }`}
             >
@@ -60,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
             </button>
             <button
               onClick={() => onNavigate('activities')}
-              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+              className={`text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors ${
                 currentTab === 'activities' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
               }`}
             >
@@ -68,15 +65,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
             </button>
             <button
               onClick={() => onNavigate('spaces')}
-              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+              className={`text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors ${
                 currentTab === 'spaces' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
               }`}
             >
-              Sports Spaces
+              Spaces
             </button>
             <button
               onClick={() => onNavigate('equipment')}
-              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+              className={`text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors ${
                 currentTab === 'equipment' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
               }`}
             >
@@ -85,16 +82,16 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
             {user && (
               <button
                 onClick={() => onNavigate('my-bookings')}
-                className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+                className={`text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors ${
                   currentTab === 'my-bookings' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
                 }`}
               >
-                My Bookings
+                Bookings
               </button>
             )}
             <button
               onClick={() => onNavigate('safety')}
-              className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+              className={`text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors ${
                 currentTab === 'safety' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
               }`}
             >
@@ -103,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
             {user && (
               <button
                 onClick={() => onNavigate('dashboard')}
-                className={`text-xs font-bold tracking-wider uppercase transition-colors ${
+                className={`text-xs font-bold tracking-wider uppercase whitespace-nowrap transition-colors ${
                   currentTab === 'dashboard' ? 'text-[#E76244]' : 'text-[#221013]/70 hover:text-[#221013]'
                 }`}
               >
@@ -113,35 +110,35 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
           </nav>
 
           {/* Right Action: Pill JOIN button or User Controls */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
             {user ? (
               <>
                 <button
                   onClick={() => onNavigate('create-activity')}
-                  className="flex items-center gap-2 bg-[#221013] text-[#FAF7F0] font-display font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-full hover:bg-neutral-800 transition-all shadow-sm"
+                  className="flex items-center gap-1.5 bg-[#221013] text-[#FAF7F0] font-display font-bold text-xs uppercase tracking-wider px-3.5 py-2 rounded-full hover:bg-neutral-800 transition-all shadow-sm whitespace-nowrap shrink-0"
                 >
-                  <PlusCircle size={15} />
-                  Host Activity
+                  <PlusCircle size={15} className="shrink-0" />
+                  <span>Host Activity</span>
                 </button>
 
                 {/* Messages */}
                 <button
                   onClick={() => onNavigate('messages')}
-                  className={`p-2.5 rounded-full border border-neutral-300 text-[#221013] hover:bg-neutral-200 transition-all ${
+                  className={`p-2 rounded-full border border-neutral-300 text-[#221013] hover:bg-neutral-200 transition-all shrink-0 ${
                     currentTab === 'messages' ? 'bg-[#221013] text-[#FAF7F0]' : ''
                   }`}
                   title="Messages & Chat"
                 >
-                  <MessageSquare size={17} />
+                  <MessageSquare size={16} />
                 </button>
 
                 {/* Notifications */}
                 <button
                   onClick={() => onNavigate('notifications')}
-                  className="relative p-2.5 rounded-full border border-neutral-300 text-[#221013] hover:bg-neutral-200 transition-all"
+                  className="relative p-2 rounded-full border border-neutral-300 text-[#221013] hover:bg-neutral-200 transition-all shrink-0"
                   title="Notifications"
                 >
-                  <Bell size={17} />
+                  <Bell size={16} />
                   {unreadNotifications > 0 && (
                     <span className="absolute -top-1 -right-1 bg-[#E76244] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                       {unreadNotifications}
@@ -152,38 +149,37 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
                 {/* Profile Pill */}
                 <div 
                   onClick={() => onNavigate('profile')}
-                  className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full bg-white border border-neutral-300 cursor-pointer hover:border-[#221013] transition-colors"
+                  className="flex items-center gap-1.5 pl-1.5 pr-3 py-1 rounded-full bg-white border border-neutral-300 cursor-pointer hover:border-[#221013] transition-colors shrink-0 max-w-[130px]"
                 >
                   {user.avatarUrl ? (
-                    <img src={user.avatarUrl} alt={user.displayName} className="w-6 h-6 rounded-full object-cover" />
+                    <img src={user.avatarUrl} alt={user.displayName} className="w-5 h-5 rounded-full object-cover shrink-0" />
                   ) : (
-                    <div className="w-6 h-6 rounded-full bg-[#CCFF00] text-[#121212] font-bold text-xs flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-full bg-[#CCFF00] text-[#121212] font-bold text-xs flex items-center justify-center shrink-0">
                       {user.displayName.charAt(0)}
                     </div>
                   )}
-                  <span className="text-xs font-semibold text-[#221013]">{user.displayName.split(' ')[0]}</span>
+                  <span className="text-xs font-semibold text-[#221013] truncate">{user.displayName.split(' ')[0]}</span>
                 </div>
 
                 <button
                   onClick={logout}
-                  className="p-2 text-neutral-400 hover:text-[#E76244] transition-colors"
+                  className="p-1.5 text-neutral-400 hover:text-[#E76244] transition-colors shrink-0"
                   title="Logout"
                 >
                   <LogOut size={16} />
                 </button>
               </>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 <button
                   onClick={() => onOpenAuth('login')}
-                  className="text-xs font-bold uppercase tracking-wider text-[#221013]/70 hover:text-[#221013] px-3 py-2 transition-colors"
+                  className="text-xs font-bold uppercase tracking-wider text-[#221013]/70 hover:text-[#221013] px-3 py-2 transition-colors whitespace-nowrap"
                 >
                   Log In
                 </button>
-                {/* Crisp Pill JOIN Button exactly matching screenshot */}
                 <button
                   onClick={() => onOpenAuth('register')}
-                  className="px-6 py-2 rounded-full border-2 border-[#221013] text-[#221013] font-display font-bold text-xs uppercase tracking-wider hover:bg-[#221013] hover:text-white transition-all"
+                  className="px-5 py-2 rounded-full border-2 border-[#221013] text-[#221013] font-display font-bold text-xs uppercase tracking-wider hover:bg-[#221013] hover:text-white transition-all whitespace-nowrap"
                 >
                   JOIN
                 </button>
@@ -192,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
           </div>
 
           {/* Mobile hamburger */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-[#221013] focus:outline-none"
@@ -205,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentTab, onNavigate, onOpenAu
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FAF7F0] border-b border-neutral-200 px-6 pt-4 pb-6 space-y-4">
+        <div className="lg:hidden bg-[#FAF7F0] border-b border-neutral-200 px-6 pt-4 pb-6 space-y-4">
           <button
             onClick={() => { onNavigate('partners'); setMobileMenuOpen(false); }}
             className="block w-full text-left font-display text-lg uppercase text-[#221013] py-1"
