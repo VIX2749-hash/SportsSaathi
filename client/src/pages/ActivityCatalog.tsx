@@ -18,6 +18,8 @@ import {
   SlidersHorizontal
 } from 'lucide-react';
 
+import { SportImage } from '../components/SportImage';
+
 interface ActivityCatalogProps {
   onNavigate: (tab: string, meta?: any) => void;
   onOpenAuth: (mode: 'login' | 'register') => void;
@@ -25,14 +27,17 @@ interface ActivityCatalogProps {
 
 // Curated high-res athletic photography matching sport disciplines
 const sportCoverImages: Record<string, string> = {
+  'Cricket': 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=700&q=80',
   'Running': 'https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=700&q=80',
   'Badminton': 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=700&q=80',
   'Tennis': 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=700&q=80',
   'Football': 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80',
   'Cycling': 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=700&q=80',
-  'Gym & Lifting': 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80',
+  'Gym & Lifting': 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=700&q=80',
   'Yoga': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=700&q=80',
   'Hiking': 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=700&q=80',
+  'Swimming': 'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=700&q=80',
+  'Basketball': 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=700&q=80',
 };
 
 export const ActivityCatalog: React.FC<ActivityCatalogProps> = ({ onNavigate, onOpenAuth }) => {
@@ -253,10 +258,12 @@ export const ActivityCatalog: React.FC<ActivityCatalogProps> = ({ onNavigate, on
                 >
                   <div>
                     {/* Editorial Cover Image */}
-                    <div className="relative h-48 overflow-hidden">
-                      <img
+                    <div className="relative h-48 overflow-hidden bg-neutral-900">
+                      <SportImage
                         src={cardImage}
                         alt={act.title}
+                        category={act.sport?.name}
+                        fallbackTitle={act.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

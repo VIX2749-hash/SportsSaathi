@@ -17,6 +17,7 @@ import { SportsFacility, FacilityBooking } from '../types';
 import { apiRequest } from '../services/api';
 import { BookFacilityModal } from '../components/BookFacilityModal';
 import { CreateFacilityModal } from '../components/CreateFacilityModal';
+import { SportImage } from '../components/SportImage';
 
 interface SportsSpacesProps {
   onNavigate: (tab: string, meta?: any) => void;
@@ -220,10 +221,12 @@ export const SportsSpaces: React.FC<SportsSpacesProps> = ({ onNavigate, onOpenAu
                 className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-sm hover:shadow-md transition-all flex flex-col group"
               >
                 {/* Photo & Badges */}
-                <div className="relative h-48 overflow-hidden bg-neutral-100">
-                  <img
+                <div className="relative h-48 overflow-hidden bg-neutral-900">
+                  <SportImage
                     src={facility.photos}
                     alt={facility.name}
+                    category={facility.sportCategories || facility.facilityType}
+                    fallbackTitle={facility.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   

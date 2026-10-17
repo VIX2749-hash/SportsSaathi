@@ -288,6 +288,10 @@ export const PartnerDiscovery: React.FC<PartnerDiscoveryProps> = ({ onNavigate, 
                             <img
                               src={partner.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
                               alt={partner.displayName}
+                              onError={(e) => {
+                                e.currentTarget.onerror = null;
+                                e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+                              }}
                               className="w-14 h-14 rounded-full object-cover border-2 border-[#231215] shadow-sm shrink-0"
                             />
                             <div>
@@ -437,6 +441,10 @@ export const PartnerDiscovery: React.FC<PartnerDiscoveryProps> = ({ onNavigate, 
                           <img
                             src={item.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
                             alt={item.displayName}
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+                            }}
                             className="w-9 h-9 rounded-full object-cover border border-[#221013]"
                           />
                           <span className="font-display text-base uppercase font-bold text-[#221013]">

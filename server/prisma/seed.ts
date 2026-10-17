@@ -431,7 +431,7 @@ async function main() {
       description: 'Historic cricket training turf and practice cages with natural clay pitches and astro-turf lanes. Bowling machine available upon request.',
       facilityType: 'Cricket Nets',
       sportCategories: 'Cricket, Team',
-      photos: 'https://images.unsplash.com/photo-1531415074868-036b1c5d53ec?auto=format&fit=crop&w=800&q=80',
+      photos: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80',
       location: 'Dadar / Shivaji Park, Mumbai',
       addressDetails: 'Shivaji Park Ground, Dadar West, Mumbai, Maharashtra 400028',
       amenities: 'Practice Nets, Turf Pitches, Bowling Machine, Gear Lockers, Water Point',
@@ -502,7 +502,7 @@ async function main() {
       maxLoanDays: 4,
       depositRequired: 800.0,
       pricePerLoan: 200.0,
-      photos: 'https://images.unsplash.com/photo-1531415074868-036b1c5d53ec?auto=format&fit=crop&w=700&q=80',
+      photos: 'https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&w=800&q=80',
       status: 'AVAILABLE',
     },
   });

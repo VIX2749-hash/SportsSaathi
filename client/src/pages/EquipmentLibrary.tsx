@@ -16,6 +16,7 @@ import { EquipmentItem, EquipmentReservation } from '../types';
 import { apiRequest } from '../services/api';
 import { BorrowEquipmentModal } from '../components/BorrowEquipmentModal';
 import { CreateEquipmentModal } from '../components/CreateEquipmentModal';
+import { SportImage } from '../components/SportImage';
 
 interface EquipmentLibraryProps {
   onNavigate: (tab: string, meta?: any) => void;
@@ -241,10 +242,12 @@ export const EquipmentLibrary: React.FC<EquipmentLibraryProps> = ({ onNavigate, 
                   className="bg-white rounded-3xl overflow-hidden border border-neutral-200 shadow-sm hover:shadow-md transition-all flex flex-col group"
                 >
                   {/* Photo & Badges */}
-                  <div className="relative h-48 overflow-hidden bg-neutral-100">
-                    <img
+                  <div className="relative h-48 overflow-hidden bg-neutral-900">
+                    <SportImage
                       src={item.photos}
                       alt={item.name}
+                      category={item.sportCategory}
+                      fallbackTitle={item.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 

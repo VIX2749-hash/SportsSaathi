@@ -125,7 +125,26 @@ export const CreateFacilityModal: React.FC<CreateFacilityModalProps> = ({
               </label>
               <select
                 value={facilityType}
-                onChange={(e) => setFacilityType(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setFacilityType(val);
+                  if (val === 'Cricket Nets') {
+                    setPhotos('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80');
+                    setSportCategories('Cricket, Team');
+                  } else if (val === 'Football Ground') {
+                    setPhotos('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80');
+                    setSportCategories('Football, Team');
+                  } else if (val === 'Tennis Court') {
+                    setPhotos('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80');
+                    setSportCategories('Tennis, Racket');
+                  } else if (val === 'Badminton Court') {
+                    setPhotos('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=800&q=80');
+                    setSportCategories('Badminton, Racket');
+                  } else if (val === 'Running Track') {
+                    setPhotos('https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=800&q=80');
+                    setSportCategories('Running, Athletics');
+                  }
+                }}
                 className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
               >
                 <option value="Badminton Court">Badminton Court</option>

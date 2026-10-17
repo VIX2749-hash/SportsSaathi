@@ -21,6 +21,7 @@ import {
   AlertTriangle,
   Trophy
 } from 'lucide-react';
+import { SportImage } from '../components/SportImage';
 
 interface ActivityDetailProps {
   activityId: string;
@@ -233,7 +234,19 @@ export const ActivityDetail: React.FC<ActivityDetailProps> = ({
         </div>
 
         {/* Main Activity Card */}
-        <div className="bg-white rounded-[32px] border border-neutral-200 p-8 sm:p-12 shadow-sm relative space-y-6">
+        <div className="bg-white rounded-[32px] border border-neutral-200 overflow-hidden shadow-sm relative">
+          <div className="relative h-48 sm:h-64 w-full overflow-hidden bg-neutral-900">
+            <SportImage
+              src={undefined}
+              category={activity.sport?.name}
+              fallbackTitle={activity.title}
+              alt={activity.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          </div>
+
+          <div className="p-8 sm:p-12 space-y-6">
           
           {/* Top Badges */}
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -494,8 +507,8 @@ export const ActivityDetail: React.FC<ActivityDetailProps> = ({
               )}
             </div>
           </div>
-
         </div>
+      </div>
 
         {/* Dedicated Activity Group Chat (Joined Athletes Only) */}
         <div className="bg-white rounded-[32px] border border-neutral-200 p-8 sm:p-10 shadow-sm space-y-6">

@@ -122,7 +122,25 @@ export const CreateEquipmentModal: React.FC<CreateEquipmentModalProps> = ({
               </label>
               <select
                 value={sportCategory}
-                onChange={(e) => setSportCategory(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setSportCategory(val);
+                  if (val === 'Cricket') {
+                    setPhotos('https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&w=800&q=80');
+                  } else if (val === 'Badminton') {
+                    setPhotos('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=800&q=80');
+                  } else if (val === 'Football') {
+                    setPhotos('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80');
+                  } else if (val === 'Tennis') {
+                    setPhotos('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=80');
+                  } else if (val === 'Yoga') {
+                    setPhotos('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80');
+                  } else if (val === 'Cycling') {
+                    setPhotos('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80');
+                  } else if (val === 'Running') {
+                    setPhotos('https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=800&q=80');
+                  }
+                }}
                 className="w-full px-4 py-3 rounded-xl bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#221013]"
               >
                 <option value="Badminton">Badminton</option>

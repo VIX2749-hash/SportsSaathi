@@ -156,6 +156,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
                     <img
                       src={req.requester?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
                       alt={req.requester?.displayName || 'Sports Athlete'}
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+                      }}
                       className="w-11 h-11 rounded-full object-cover border border-[#221013]"
                     />
                     <div>
@@ -324,6 +328,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigate, onOpenAuth }) 
                       <img
                         src={p.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
                         alt={p.displayName || 'Athlete'}
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80';
+                        }}
                         className="w-12 h-12 rounded-full object-cover border border-[#221013]"
                       />
                       <div>
